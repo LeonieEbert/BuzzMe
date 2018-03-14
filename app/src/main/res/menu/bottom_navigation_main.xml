@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/action_active_project"
+        android:enabled="true"
+        android:icon="@drawable/ic_nav_active_project"
+        android:title="ActiveProject"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_inactive_project"
+        android:enabled="true"
+        android:icon="@drawable/ic_nav_inactive_project"
+        android:title="InactiveProject"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_overview_project"
+        android:enabled="true"
+        android:icon="@drawable/ic_nav_overview_project"
+        android:title="OverviewProject"
+        app:showAsAction="ifRoom"/>
+</menu>
