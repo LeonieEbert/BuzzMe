@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "738268185401",
+    "firebase_url": "https://buzzme-dc300.firebaseio.com",
+    "project_id": "buzzme-dc300",
+    "storage_bucket": "buzzme-dc300.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738268185401:android:e5a039c8923dea85",
+        "android_client_info": {
+          "package_name": "com.example.buzzme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738268185401-jbrgvkr0dqt03efkm4sibcf7ch8b5jd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1rQKWz2B6dF2l88Ls27znBhJ34jjd9mw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

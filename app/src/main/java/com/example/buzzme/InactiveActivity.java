@@ -1,25 +1,27 @@
 package com.example.buzzme;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity{
+/**
+ * Created by User on 22.03.2018.
+ */
 
-    protected void onCreate(Bundle savedInstanceState) {
+public class InactiveActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_inactive);
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -27,16 +29,16 @@ public class MainActivity extends AppCompatActivity{
                 switch (item.getItemId())
                 {
                     case R.id.action_active_project:
-                        Toast.makeText(MainActivity.this, "Action Active Project", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InactiveActivity.this, "Action Active Project", Toast.LENGTH_SHORT).show();
+                        Intent intent1 = new Intent(InactiveActivity.this, MainActivity.class);
+                        startActivity(intent1);
                         break;
                     case R.id.action_inactive_project:
-                        Toast.makeText(MainActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
-                        Intent intent2 = new Intent(MainActivity.this, InactiveActivity.class);
-                        startActivity(intent2);
+                        Toast.makeText(InactiveActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_overview_project:
-                        Toast.makeText(MainActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
-                        Intent intent3 = new Intent(MainActivity.this, OverviewActivity.class);
+                        Toast.makeText(InactiveActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
+                        Intent intent3 = new Intent(InactiveActivity.this, OverviewActivity.class);
                         startActivity(intent3);
                         break;
                 }
@@ -44,11 +46,4 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
-
-    public void onClick(View view) {
-        Intent intent4 = new Intent(MainActivity.this, AddProjectActivity.class);
-        startActivity(intent4);
-    }
-
-
 }
