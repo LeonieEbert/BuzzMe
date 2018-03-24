@@ -31,13 +31,11 @@ public class MainActivity extends AppCompatActivity{
                         break;
                     case R.id.action_inactive_project:
                         Toast.makeText(MainActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
-                        Intent intent2 = new Intent(MainActivity.this, InactiveActivity.class);
-                        startActivity(intent2);
+                        startActivity(new Intent(MainActivity.this, InactiveActivity.class));
                         break;
                     case R.id.action_overview_project:
                         Toast.makeText(MainActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
-                        Intent intent3 = new Intent(MainActivity.this, OverviewActivity.class);
-                        startActivity(intent3);
+                        startActivity(new Intent(MainActivity.this, OverviewActivity.class));
                         break;
                 }
                 return true;

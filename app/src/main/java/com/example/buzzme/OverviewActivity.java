@@ -19,10 +19,12 @@ public class OverviewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -30,13 +32,11 @@ public class OverviewActivity extends AppCompatActivity {
                 {
                     case R.id.action_active_project:
                         Toast.makeText(OverviewActivity.this, "Action Active Project", Toast.LENGTH_SHORT).show();
-                        Intent intent1 = new Intent(OverviewActivity.this, MainActivity.class);
-                        startActivity(intent1);
+                        startActivity(new Intent(OverviewActivity.this, MainActivity.class));
                         break;
                     case R.id.action_inactive_project:
                         Toast.makeText(OverviewActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
-                        Intent intent2 = new Intent(OverviewActivity.this, InactiveActivity.class);
-                        startActivity(intent2);
+                        startActivity(new Intent(OverviewActivity.this, InactiveActivity.class));
                         break;
                     case R.id.action_overview_project:
                         Toast.makeText(OverviewActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();

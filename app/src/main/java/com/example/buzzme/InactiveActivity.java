@@ -30,16 +30,14 @@ public class InactiveActivity extends AppCompatActivity {
                 {
                     case R.id.action_active_project:
                         Toast.makeText(InactiveActivity.this, "Action Active Project", Toast.LENGTH_SHORT).show();
-                        Intent intent1 = new Intent(InactiveActivity.this, MainActivity.class);
-                        startActivity(intent1);
+                        startActivity(new Intent(InactiveActivity.this, MainActivity.class));
                         break;
                     case R.id.action_inactive_project:
                         Toast.makeText(InactiveActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_overview_project:
                         Toast.makeText(InactiveActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
-                        Intent intent3 = new Intent(InactiveActivity.this, OverviewActivity.class);
-                        startActivity(intent3);
+                        startActivity(new Intent(InactiveActivity.this, OverviewActivity.class));
                         break;
                 }
                 return true;
