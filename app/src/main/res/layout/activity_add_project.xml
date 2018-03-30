@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textView"
         android:layout_width="60dp"
         android:layout_height="35dp"
@@ -37,6 +37,6 @@
         android:layout_width="143dp"
         android:layout_height="29dp"
         tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="90dp" />
+        tools:layout_editor_absoluteY="90dp" />-->
 
 </android.support.constraint.ConstraintLayout>

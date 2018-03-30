@@ -28,16 +28,24 @@ package com.example.buzzme;
 
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.Task;
-        import com.google.firebase.auth.AuthResult;
-        import com.google.firebase.auth.FirebaseAuth;
-        import com.google.firebase.auth.FirebaseUser;
+        //import com.google.firebase.auth.AuthResult;
+        //import com.google.firebase.auth.FirebaseAuth;
+        //import com.google.firebase.auth.FirebaseUser;
         import android.app.ProgressDialog;
 
 
-public class LoginActivity extends AppCompatActivity implements
-        View.OnClickListener {
+public class LoginActivity extends AppCompatActivity
+        //implements View.OnClickListener
+        {
 
-    private static final String TAG = "Login";
+        public void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_login);
+
+
+
+
+    /*private static final String TAG = "Login";
 
     private TextView mStatusTextView;
     private TextView mDetailTextView;
@@ -47,12 +55,6 @@ public class LoginActivity extends AppCompatActivity implements
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
-
-
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
 
 
         // Views
@@ -245,5 +247,6 @@ public class LoginActivity extends AppCompatActivity implements
         } else if (i == R.id.verify_email_button) {
             sendEmailVerification();
         }
-    }
+    }*/
+        }
 }
