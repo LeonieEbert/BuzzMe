@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class)); // hier wieder ändern auf Login, nachdem Firebasetest erfolgreich
             }
         }, 4000);
             }
