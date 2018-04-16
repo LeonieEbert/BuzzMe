@@ -22,6 +22,7 @@ package com.example.buzzme;
         import android.support.annotation.Nullable;
         import android.support.v7.app.AppCompatActivity;
 
+        import android.util.Log;
         import android.view.View;
         import android.widget.Toast;
 
@@ -120,5 +121,15 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+//https://www.youtube.com/watch?v=xt9elnnUGRw
+    public void btnRegistration_Click(View v ){
+
+            Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
+            startActivity(i);
+    }
+    public void btnLogin_Click(View v ){
+        Intent i = new Intent(LoginActivity.this,EMailLoginActivity.class);
+        startActivity(i);
+    }
 }
 
