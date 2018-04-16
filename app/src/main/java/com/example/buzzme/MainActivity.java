@@ -21,11 +21,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int RC_SIGN_IN = 123;
+    //private static final int RC_SIGN_IN = 123;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        /*public void onClick(View view) {
+            startActivity(new Intent(MainActivity.this, AddProjectActivity.class));
+        }*/
 
 // ...
 
@@ -70,11 +75,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-    }
-
-    public void onClick(View view) {
-        startActivity(new Intent(MainActivity.this, AddProjectActivity.class));
     }*/
+
+
 
 /*    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
