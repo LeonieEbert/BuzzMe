@@ -1,5 +1,6 @@
 package com.example.buzzme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -52,6 +53,11 @@ public class AddProjectActivity extends AppCompatActivity {
         colorPickerDialog.show();
 
 
+    }
+    public void btnCancel_Click (View v) {
+
+        Intent i = new Intent(AddProjectActivity.this, ActiveActivity.class);
+        startActivity(i);
     }
 
 }

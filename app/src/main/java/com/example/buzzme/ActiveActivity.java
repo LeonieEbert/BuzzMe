@@ -8,21 +8,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by User on 26.03.2018.
  */
 
 public class ActiveActivity extends AppCompatActivity {
+    private FirebaseDatabase buzzbase = FirebaseDatabase.getInstance(); // Verbindung aufbauen über json-Datei
+    private DatabaseReference buzzdataref = buzzbase.getReference();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_active);
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
+        final TextView showFirebaseData = (TextView) findViewById(R.id.showFirebaseData);
+
+        buzzdataref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String textupdate = dataSnapshot.getValue(String.class);
+                showFirebaseData.setText(textupdate);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -45,8 +68,10 @@ public class ActiveActivity extends AppCompatActivity {
         });
     }
 
-    public void onClick(View view) {
-        startActivity(new Intent(ActiveActivity.this, AddProjectActivity.class));
+    public void btnAddProject_Click(View v ){
+
+        Intent i = new Intent(ActiveActivity.this, AddProjectActivity.class);
+        startActivity(i);
     }
 
 

@@ -34,7 +34,7 @@ public class EMailLoginActivity extends AppCompatActivity {
 
                if(task.isSuccessful()){
                    Toast.makeText(EMailLoginActivity.this, "Login succesful", Toast.LENGTH_LONG).show();
-                   Intent i = new Intent(EMailLoginActivity.this, MainActivity.class);
+                   Intent i = new Intent(EMailLoginActivity.this, ActiveActivity.class);
                    startActivity(i);
                }
                else {

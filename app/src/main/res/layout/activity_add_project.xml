@@ -6,7 +6,8 @@
     android:paddingRight="16dp"
     android:paddingTop="10dp"
     android:paddingBottom="5dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    >
 
     <EditText
         android:id="@+id/name_new_project"
@@ -46,10 +47,11 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_cancel"
+            android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Abbrechen"
+            android:onClick="btnCancel_Click"
             android:drawableLeft="@drawable/ic_save_cancel"/>
 
         <Button
