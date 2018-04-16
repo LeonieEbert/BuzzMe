@@ -1,11 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="5dp"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/name_new_project"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:hint="Name"
+        android:layout_marginBottom="14dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft ="true"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:text="Farbe" />
+
+        <Button
+            android:id="@+id/button_color"
+            android:layout_width="@dimen/color_button"
+            android:layout_height="@dimen/color_button"
+            android:background="@drawable/button_with_border"
+            android:layout_alignParentRight ="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="right|bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Abbrechen"
+            android:drawableLeft="@drawable/ic_save_cancel"/>
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="Speichern"
+            android:drawableLeft="@drawable/ic_save_check"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+<!--
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<TextView
+    <TextView
         android:id="@+id/textView"
         android:layout_width="60dp"
         android:layout_height="35dp"
@@ -37,6 +103,6 @@
         android:layout_width="143dp"
         android:layout_height="29dp"
         tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="90dp" />-->
+        tools:layout_editor_absoluteY="90dp" />
 
-</android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>-->
