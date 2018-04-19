@@ -36,9 +36,9 @@ public class ActiveActivity extends AppCompatActivity {
 
         buzzdataref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String textupdate = dataSnapshot.getValue(String.class);
-                showFirebaseData.setText(textupdate);
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               /* String textupdate = dataSnapshot.getValue(String.class);
+                showFirebaseData.setText(textupdate);*/
             }
 
             @Override

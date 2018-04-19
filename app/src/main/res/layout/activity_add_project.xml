@@ -55,8 +55,9 @@
             android:drawableLeft="@drawable/ic_save_cancel"/>
 
         <Button
-            android:id="@+id/button_save"
+            android:id="@+id/btnSave"
             android:layout_width="wrap_content"
+            android:onClick="btnSave_Click"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/holo_green_light"
             android:text="Speichern"
