@@ -59,7 +59,7 @@ public class OverviewActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         //1.SELECT *FROM Projects
-        mDatabase = FirebaseDatabase.getInstance().getReference("vep6s5QEVrh9LYhMPev1ps7UBk72");
+        mDatabase = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid().toString());
 
         mDatabase.addListenerForSingleValueEvent(valueEventListener);
 
