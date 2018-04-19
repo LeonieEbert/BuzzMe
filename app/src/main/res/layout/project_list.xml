@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -26,51 +27,30 @@
 
             <TextView
                 android:id="@+id/textViewTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="240dp"
+                android:layout_height="43dp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/btnEdit"
-                android:text="Apple MacBook Air Core i5 5th Gen - (8 GB/128 GB SSD/Mac OS Sierra)"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingTop="5dp"
+                android:text="Name"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000" />
 
             <TextView
-                android:id="@+id/textViewShortDesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewTitle"
+                android:id="@+id/textViewTime"
+                android:layout_width="240dp"
+                android:layout_height="47dp"
+                android:layout_alignParentEnd="false"
+                android:layout_below="@+id/textViewTitle"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/btnEdit"
-                android:text="13.3 Inch, 256 GB"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
-
-            <TextView
-                android:id="@+id/textViewRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewShortDesc"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@id/btnEdit"
-                android:background="@color/colorPrimary"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="4.7"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textViewPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewRating"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@id/btnEdit"
-                android:text="INR 56990"
+                android:gravity="center"
+                android:text="3T 5H 30M"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:paddingBottom="5dp" />
 
         </RelativeLayout>
 
