@@ -5,16 +5,19 @@
     <item
         android:id="@+id/action_active_project"
         android:enabled="true"
-        android:title="Active"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/ic_nav_active"
+        android:title='@string/nav_item_active'
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_inactive_project"
         android:enabled="true"
-        android:title="Inactive"
+        android:title='@string/nav_item_inactive'
+        android:icon="@drawable/ic_nav_inactive"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_overview_project"
         android:enabled="true"
-        android:title="Overview"
+        android:title='@string/nav_item_overview'
+        android:icon="@drawable/ic_nav_overview"
         app:showAsAction="ifRoom"/>
 </menu>

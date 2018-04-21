@@ -10,12 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,9 +30,8 @@ public class OverviewActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     RecyclerView recyclerView;
-    ProjectAdapter adapter;
+    OverviewProjectAdapter adapter;
     List<Project> projectsList;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,25 +44,17 @@ public class OverviewActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
-
-
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.overviewRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         projectsList = new ArrayList<>();
-        adapter = new ProjectAdapter(this, projectsList);
+        adapter = new OverviewProjectAdapter(this, projectsList);
         recyclerView.setAdapter(adapter);
 
-        //1.SELECT *FROM Projects
+
         mDatabase = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid().toString());
 
         mDatabase.addListenerForSingleValueEvent(valueEventListener);
-
-
-
-
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -118,5 +106,4 @@ public class OverviewActivity extends AppCompatActivity {
 
 
 
-    }
-
+}

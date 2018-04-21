@@ -40,4 +40,5 @@ public class Project {
     public void setProjectStatus(String projectStatus) {
         this.projectStatus = projectStatus;
     }
+
 }
