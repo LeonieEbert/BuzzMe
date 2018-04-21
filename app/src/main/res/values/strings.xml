@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">BuzzMe</string>
 
+    <string name="nav_item_active">Aktiv</string>
+    <string name="nav_item_inactive">Inaktiv</string>
+    <string name="nav_item_overview">Übersicht</string>
+
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
 

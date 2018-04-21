@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>{
+public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdapter.ProjectViewHolder>{
 
     private Context mCtx;
     private List<Project> projectList;
 
-    public ProjectAdapter(Context mCtx, List<Project> projectList) {
+    public ActiveProjectAdapter(Context mCtx, List<Project> projectList) {
         this.mCtx = mCtx;
         this.projectList = projectList;
     }
@@ -26,19 +26,17 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
     @Override
     public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.project_list,parent,false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.active_project_list,parent,false);
         return new ProjectViewHolder(view);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
-    Project project = projectList.get(position);
-    holder.textViewTitle.setText(project.getProjectName());
-    holder.textViewTime.setText("3T 5H 31M");
+        Project project = projectList.get(position);
+        holder.textViewTitle.setText(project.getProjectName());
 
-    holder.btnEdit.setBackgroundColor(project.getProjectColor());
-
+        holder.btnBackground.setBackgroundColor(project.getProjectColor());
     }
 
     @Override
@@ -48,14 +46,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 
     class ProjectViewHolder extends RecyclerView.ViewHolder{
 
-        Button btnEdit;
-        TextView textViewTitle,textViewTime;
+        Button btnBackground;
+        TextView textViewTitle;
 
         public ProjectViewHolder(View itemView) {
             super(itemView);
-            btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnBackground = itemView.findViewById(R.id.btnBackground);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewTime = itemView.findViewById(R.id.textViewTime);
         }
     }
 }
