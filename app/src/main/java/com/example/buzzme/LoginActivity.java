@@ -17,33 +17,37 @@ package com.example.buzzme;
 
 
         import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Toast;
+        import android.os.Bundle;
+        import android.support.annotation.NonNull;
+        import android.support.annotation.Nullable;
+        import android.support.v7.app.AppCompatActivity;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
+        import android.util.Log;
+        import android.view.View;
+        import android.widget.EditText;
+        import android.widget.Toast;
 
+        import com.google.android.gms.auth.api.signin.GoogleSignIn;
+        import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+        import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+        import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+        import com.google.android.gms.common.SignInButton;
+        import com.google.android.gms.common.api.ApiException;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.Task;
+        import com.google.firebase.auth.AuthCredential;
+        import com.google.firebase.auth.AuthResult;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 101;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth auth;
+    private EditText txtEmailAddress;
+    private EditText txtPwd;
 
     SignInButton googleSignInButton;
 
@@ -53,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         auth = FirebaseAuth.getInstance();
+        txtEmailAddress = findViewById(R.id.txtEmailLogin);
+        txtPwd = findViewById(R.id.txtPasswordLogin);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -126,8 +132,21 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(i);
     }
     public void btnLogin_Click(View v ){
-        Intent i = new Intent(LoginActivity.this,EMailLoginActivity.class);
-        startActivity(i);
+        (auth.signInWithEmailAndPassword(txtEmailAddress.getText().toString(),txtPwd.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()){
+                    Toast.makeText(LoginActivity.this, "Login succesful", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(LoginActivity.this, ActiveActivity.class);
+                    startActivity(i);
+                }
+                else {
+                    Log.e("Error",task.getException().toString());
+                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }
 

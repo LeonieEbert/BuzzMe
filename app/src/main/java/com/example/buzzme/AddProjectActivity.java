@@ -107,6 +107,7 @@ public class AddProjectActivity extends AppCompatActivity {
 
         mDatabase.child(user.getUid()).push().setValue(project);
 
+
         Toast.makeText(this, "Projekt erstellt",Toast.LENGTH_LONG).show();
 
     }
