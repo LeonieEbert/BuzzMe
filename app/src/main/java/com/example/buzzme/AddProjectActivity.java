@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
- * Created by User on 22.03.2018.
+ * Created by Melleoann on 22.03.2018.
  */
 
 public class AddProjectActivity extends AppCompatActivity {
@@ -29,10 +29,6 @@ public class AddProjectActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private EditText txtProjectName;
     private FirebaseAuth firebaseAuth;
-
-
-
-
 
 
     @Override
@@ -75,7 +71,7 @@ public class AddProjectActivity extends AppCompatActivity {
 
     public void btnCancel_Click (View v) {
         AlertDialog.Builder cancelAddProjekt = new AlertDialog.Builder(AddProjectActivity.this);
-        cancelAddProjekt.setMessage("Willst du das Anlegen dieses Projektes wirklich beenden?");
+        cancelAddProjekt.setMessage("Willst du das Anlegen dieses Projektes wirklich abbrechen?");
         cancelAddProjekt.setCancelable(true);
 
         cancelAddProjekt.setPositiveButton(
@@ -106,12 +102,14 @@ public class AddProjectActivity extends AppCompatActivity {
     }
     public void saveProject(){
         String projectName = txtProjectName.getText().toString().trim();
-       Project project= new Project(projectName,projectColor);
+        Project project = new Project(projectName, projectColor);
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        mDatabase.child(user.getUid()).push().child(projectName).setValue(project);
+        mDatabase.child(user.getUid()).push().setValue(project);
+
 
         Toast.makeText(this, "Projekt erstellt",Toast.LENGTH_LONG).show();
+
     }
 
 }
