@@ -24,6 +24,7 @@ package com.example.buzzme;
 
         import android.util.Log;
         import android.view.View;
+        import android.widget.EditText;
         import android.widget.Toast;
 
         import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -46,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 101;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth auth;
+    private EditText txtEmailAddress;
+    private EditText txtPwd;
 
     SignInButton googleSignInButton;
 
@@ -55,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         auth = FirebaseAuth.getInstance();
+        txtEmailAddress = findViewById(R.id.txtEmailLogin);
+        txtPwd = findViewById(R.id.txtPasswordLogin);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -128,8 +133,21 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(i);
     }
     public void btnLogin_Click(View v ){
-        Intent i = new Intent(LoginActivity.this,EMailLoginActivity.class);
-        startActivity(i);
+        (auth.signInWithEmailAndPassword(txtEmailAddress.getText().toString(),txtPwd.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()){
+                    Toast.makeText(LoginActivity.this, "Login succesful", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(LoginActivity.this, ActiveActivity.class);
+                    startActivity(i);
+                }
+                else {
+                    Log.e("Error",task.getException().toString());
+                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }
 

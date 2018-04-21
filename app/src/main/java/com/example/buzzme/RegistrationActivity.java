@@ -37,7 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG).show();
-                    Intent i = new Intent (RegistrationActivity.this, EMailLoginActivity.class);
+                    Intent i = new Intent (RegistrationActivity.this, LoginActivity.class);
                     startActivity(i);
 
                 }

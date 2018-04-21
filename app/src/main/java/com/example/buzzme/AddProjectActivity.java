@@ -109,7 +109,7 @@ public class AddProjectActivity extends AppCompatActivity {
        Project project= new Project(projectName,projectColor);
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        mDatabase.child(user.getUid()).child(projectName).setValue(project);
+        mDatabase.child(user.getUid()).push().child(projectName).setValue(project);
 
         Toast.makeText(this, "Projekt erstellt",Toast.LENGTH_LONG).show();
     }

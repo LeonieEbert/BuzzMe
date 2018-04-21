@@ -24,7 +24,6 @@
         <activity android:name=".AddProjectActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".ActiveActivity" />
-        <activity android:name=".EMailLoginActivity"></activity>
     </application>
 
 </manifest>
