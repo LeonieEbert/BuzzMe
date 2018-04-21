@@ -36,7 +36,11 @@
                 android:paddingTop="5dp"
                 android:text="Name"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:autoSizeMaxTextSize="100dp"
+                android:autoSizeMinTextSize="12dp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform" />
 
             <TextView
                 android:id="@+id/textViewTime"
@@ -50,6 +54,7 @@
                 android:text="3T 5H 30M"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
+                android:autoSizeTextType="uniform"
                 tools:paddingBottom="5dp" />
 
         </RelativeLayout>
