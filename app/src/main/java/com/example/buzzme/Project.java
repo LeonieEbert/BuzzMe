@@ -1,9 +1,12 @@
 package com.example.buzzme;
 
+import java.util.List;
+
 public class Project {
     private String projectName;
     private int projectColor;
     private String projectStatus;
+    private List<Timestamp> projectTimes;
 
     public Project() {
         this.projectName = "NONAME";
@@ -40,5 +43,7 @@ public class Project {
     public void setProjectStatus(String projectStatus) {
         this.projectStatus = projectStatus;
     }
+
+
 
 }
