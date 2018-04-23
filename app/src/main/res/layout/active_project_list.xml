@@ -18,26 +18,20 @@
 
             <Button
                 android:id="@+id/btnBackground"
-                android:layout_width="366dp"
-                android:layout_height="100dp"
-                android:padding="4dp" />
-
+                android:layout_width="wrap_content"
+                android:layout_height="74dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="BuzzMe" />
 
             <TextView
                 android:id="@+id/textViewTitle"
-                android:layout_width="360dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/btnBackground"
-                android:layout_alignTop="@+id/btnBackground"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="12dp"
-                android:autoSizeStepGranularity="2sp"
-                android:autoSizeTextType="uniform"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingTop="5dp"
-                android:text="Projektname"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000" />
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="36dp"
+                android:text="TextView" />
 
             <Switch
                 android:id="@+id/switch1"
@@ -45,7 +39,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="28dp"
                 android:text="Switch" />
+
+
 
         </RelativeLayout>
 
