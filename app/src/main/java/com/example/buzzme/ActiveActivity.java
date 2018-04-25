@@ -122,15 +122,21 @@ public class ActiveActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Buzzme verlassen")
-                .setMessage("Bist du sicher, dass du die App verlassen möchtest?")
+                .setMessage("Bist du sicher, dass Erstellen des Projectes beenden möchtest?")
                 .setPositiveButton("Ja", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         finish();
                         System.exit(0);
 
                     }
 
+                })
+                .setNegativeButton("Nein", null)
+                .show();
+
 
 }
+    }
