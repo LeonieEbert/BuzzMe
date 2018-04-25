@@ -45,7 +45,6 @@ package com.example.buzzme;
         import com.google.firebase.auth.FirebaseUser;
         import com.google.firebase.auth.GoogleAuthProvider;
 
-
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 101;
