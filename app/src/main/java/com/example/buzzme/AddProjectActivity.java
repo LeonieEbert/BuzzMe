@@ -100,13 +100,15 @@ public class AddProjectActivity extends AppCompatActivity {
     public void btnSave_Click (View v) {
     saveProject();
     }
+
     public void saveProject(){
         String projectName = txtProjectName.getText().toString().trim();
         Project project = new Project(projectName, projectColor);
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        mDatabase.child(user.getUid()).push().setValue(project);
-
+        String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).push().getKey();
+        project.setProjectId(id);
+        FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(id).setValue(project);
 
         Toast.makeText(this, "Projekt erstellt",Toast.LENGTH_LONG).show();
 

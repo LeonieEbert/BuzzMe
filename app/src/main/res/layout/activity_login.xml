@@ -46,13 +46,6 @@
         android:onClick="btnRegistration_Click"
         android:text="Registrieren" />
 
-
-
-
-
-
-
-
 </LinearLayout>
 
 

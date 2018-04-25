@@ -79,7 +79,7 @@ public class ActiveActivity extends AppCompatActivity {
 
 
         DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference();
-        Query activeQuery = activeRef.child(firebaseAuth.getCurrentUser().getUid().toString()).orderByChild("projectStatus").equalTo("aktiv");
+        Query activeQuery = activeRef.child(firebaseAuth.getCurrentUser().getUid()).orderByChild("projectStatus").equalTo("aktiv");
 
         activeQuery.addListenerForSingleValueEvent(valueEventListener);
     }
