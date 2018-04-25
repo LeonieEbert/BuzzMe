@@ -16,15 +16,19 @@ package com.example.buzzme;
  */
 
 
+        import android.content.DialogInterface;
         import android.content.Intent;
         import android.os.Bundle;
         import android.support.annotation.NonNull;
         import android.support.annotation.Nullable;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
 
         import android.util.Log;
         import android.view.View;
+        import android.view.WindowManager;
         import android.widget.EditText;
+        import android.widget.ProgressBar;
         import android.widget.Toast;
 
         import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -47,19 +51,25 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 101;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth auth;
+    private ProgressBar loadingBar;
     private EditText txtEmailAddress;
     private EditText txtPwd;
+
+
 
     SignInButton googleSignInButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         auth = FirebaseAuth.getInstance();
         txtEmailAddress = findViewById(R.id.txtEmailLogin);
         txtPwd = findViewById(R.id.txtPasswordLogin);
+        loadingBar = (ProgressBar)findViewById(R.id.prbarLogin);
+        loadingBar.setVisibility(View.GONE);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -74,6 +84,9 @@ public class LoginActivity extends AppCompatActivity {
         googleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingBar.setVisibility(View.VISIBLE);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
@@ -84,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -101,9 +115,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account){
 
+
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -119,6 +135,8 @@ public class LoginActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(getApplicationContext(), "User login failed", Toast.LENGTH_SHORT).show();
                         }
+                        loadingBar.setVisibility(View.GONE);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                         // ...
                     }
@@ -126,28 +144,66 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-//https://www.youtube.com/watch?v=xt9elnnUGRw
+
     public void btnRegistration_Click(View v ){
 
             Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
             startActivity(i);
+            finish();
     }
     public void btnLogin_Click(View v ){
-        (auth.signInWithEmailAndPassword(txtEmailAddress.getText().toString(),txtPwd.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if(task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Login succesful", Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(LoginActivity.this, ActiveActivity.class);
-                    startActivity(i);
+        if (!txtEmailAddress.getText().toString().isEmpty() && !txtPwd.getText().toString().isEmpty()) {
+            loadingBar.setVisibility(View.VISIBLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+
+            (auth.signInWithEmailAndPassword(txtEmailAddress.getText().toString(), txtPwd.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if (task.isSuccessful()) {
+
+                        Toast.makeText(LoginActivity.this, "Login succesful", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(LoginActivity.this, ActiveActivity.class);
+                        startActivity(i);
+                        finish();
+
+                    } else {
+
+                        Log.e("Error", task.getException().toString());
+                        Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    loadingBar.setVisibility(View.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
-                else {
-                    Log.e("Error",task.getException().toString());
-                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+            });
+        }
+        else{
+            Toast.makeText(LoginActivity.this, "Bitte Email Adresse und Passwort angeben", Toast.LENGTH_LONG).show();
+        }
     }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Buzzme verlassen")
+                .setMessage("Bist du sicher, dass du die App verlassen möchtest?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        System.exit(0);
+
+                    }
+
+                })
+                .setNegativeButton("Nein", null)
+                .show();
+    }
+
 }
 

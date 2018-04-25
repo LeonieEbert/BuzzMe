@@ -8,6 +8,16 @@
     android:paddingBottom="5dp"
     android:orientation="vertical"
     >
+    <ProgressBar
+        android:id="@+id/prbarAddProject"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:max="100"
+        android:layout_below="@+id/framelauout"
+        android:indeterminateTint="#1a09d6"
+        android:layout_marginTop="-7dp"/>
 
     <EditText
         android:id="@+id/name_new_project"

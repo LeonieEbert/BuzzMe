@@ -2,6 +2,7 @@ package com.example.buzzme;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.Timer;
@@ -19,15 +20,18 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
-        // set delay to show Logo
-        new Timer().schedule(new TimerTask() {
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
+                finish();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class)); // hier wieder ändern auf Login, nachdem Firebasetest erfolgreich
 
             }
-        }, 4000);
+        }, 2000);
+
             }
+
         }
 

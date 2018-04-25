@@ -7,7 +7,16 @@
     android:background="@color/grey_100"
     android:orientation="vertical">
 
-
+    <ProgressBar
+        android:id="@+id/prbarLogin"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:max="100"
+        android:layout_below="@+id/framelauout"
+        android:indeterminateTint="#1a09d6"
+        android:layout_marginTop="-7dp"/>
     <EditText
         android:id="@+id/txtEmailLogin"
         android:layout_width="match_parent"
@@ -45,6 +54,8 @@
         android:layout_height="wrap_content"
         android:onClick="btnRegistration_Click"
         android:text="Registrieren" />
+
+
 
 
 

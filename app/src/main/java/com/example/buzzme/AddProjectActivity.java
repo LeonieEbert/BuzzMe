@@ -8,8 +8,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +31,7 @@ public class AddProjectActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private EditText txtProjectName;
     private FirebaseAuth firebaseAuth;
+    private ProgressBar loadingBar;
 
 
 
@@ -52,6 +55,8 @@ public class AddProjectActivity extends AppCompatActivity {
         txtProjectName = findViewById(R.id.name_new_project);
         mDatabase= FirebaseDatabase.getInstance().getReference();
         firebaseAuth= FirebaseAuth.getInstance();
+        loadingBar = (ProgressBar)findViewById(R.id.prbarAddProject);
+        loadingBar.setVisibility(View.GONE);
 
     }
     private void openColorPickerDialog(boolean alphaSupport) {
@@ -85,6 +90,7 @@ public class AddProjectActivity extends AppCompatActivity {
                         dialog.cancel();
                         Intent i = new Intent(AddProjectActivity.this, ActiveActivity.class);
                         startActivity(i);
+                        finish();
                     }
                 });
 
@@ -105,6 +111,9 @@ public class AddProjectActivity extends AppCompatActivity {
     saveProject();
     }
     public void saveProject(){
+        loadingBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         String projectName = txtProjectName.getText().toString().trim();
        Project project= new Project(projectName,projectColor);
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -112,6 +121,28 @@ public class AddProjectActivity extends AppCompatActivity {
         mDatabase.child(user.getUid()).push().child(projectName).setValue(project);
 
         Toast.makeText(this, "Projekt erstellt",Toast.LENGTH_LONG).show();
+        loadingBar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Buzzme verlassen")
+                .setMessage("Bist du sicher, dass Erstellen des Projectes beenden möchtest?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(AddProjectActivity.this, ActiveActivity.class);
+                        startActivity(i);
+                        finish();
+
+                    }
+
+                })
+                .setNegativeButton("Nein", null)
+                .show();
     }
 
 }

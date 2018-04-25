@@ -1,9 +1,11 @@
 package com.example.buzzme;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,10 +59,12 @@ public class ActiveActivity extends AppCompatActivity {
                     case R.id.action_inactive_project:
                         Toast.makeText(ActiveActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ActiveActivity.this, InactiveActivity.class));
+                        finish();
                         break;
                     case R.id.action_overview_project:
                         Toast.makeText(ActiveActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ActiveActivity.this, OverviewActivity.class));
+                        finish();
                         break;
                 }
                 return true;
@@ -72,7 +76,26 @@ public class ActiveActivity extends AppCompatActivity {
 
         Intent i = new Intent(ActiveActivity.this, AddProjectActivity.class);
         startActivity(i);
+        finish();
     }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Buzzme verlassen")
+                .setMessage("Bist du sicher, dass du die App verlassen möchtest?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
 
+                    }
+
+                })
+                .setNegativeButton("Nein", null)
+                .show();
+    }
 
 }
