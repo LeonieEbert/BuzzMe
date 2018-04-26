@@ -1,6 +1,7 @@
 package com.example.buzzme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,6 +39,13 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         holder.textViewTime.setText("3T 5H 31M");
 
         holder.btnEdit.setBackgroundColor(project.getProjectColor());
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCtx.startActivity(new Intent(mCtx, AddTimeActivity.class));
+
+            }
+        });
     }
 
     @Override

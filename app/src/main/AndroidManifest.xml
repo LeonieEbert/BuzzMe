@@ -21,9 +21,14 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".InactiveActivity" />
         <activity android:name=".OverviewActivity" />
-        <activity android:name=".AddProjectActivity" />
+        <activity
+            android:name=".AddProjectActivity"
+            android:label="Projekt hinzufügen"/>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".ActiveActivity" />
+        <activity
+            android:name=".AddTimeActivity"
+            android:label="Zeit hinzufügen"/>
     </application>
 
 </manifest>
