@@ -31,34 +31,31 @@
                 android:layout_height="43dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="5dp"
-                android:layout_toEndOf="@id/btnEdit"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingTop="5dp"
-                android:text="Projektname"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000"
-                android:autoSizeTextType="uniform"
                 android:autoSizeMaxTextSize="100dp"
                 android:autoSizeMinTextSize="12dp"
-                android:autoSizeStepGranularity="2sp"/>
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingTop="5dp"
+                android:text="@string/projectName"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/textViewTime"
                 android:layout_width="240dp"
                 android:layout_height="47dp"
-                android:layout_alignParentEnd="false"
-                android:layout_below="@+id/textViewTitle"
-                android:layout_marginStart="5dp"
-                android:layout_toEndOf="@id/btnEdit"
+                android:layout_alignBottom="@+id/btnEdit"
+                android:layout_alignParentEnd="true"
+                android:autoSizeMaxTextSize="100dp"
+                android:autoSizeMinTextSize="12dp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
                 android:gravity="center"
                 android:text="3T 5H 30M"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
-                tools:paddingBottom="5dp"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="12dp"
-                android:autoSizeStepGranularity="2sp"/>
+                tools:paddingBottom="5dp" />
 
         </RelativeLayout>
 

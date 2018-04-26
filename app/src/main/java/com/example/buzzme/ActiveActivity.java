@@ -1,9 +1,11 @@
 package com.example.buzzme;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -63,10 +66,12 @@ public class ActiveActivity extends AppCompatActivity {
                     case R.id.action_inactive_project:
                         Toast.makeText(ActiveActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ActiveActivity.this, InactiveActivity.class));
+                        finish();
                         break;
                     case R.id.action_overview_project:
                         Toast.makeText(ActiveActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ActiveActivity.this, OverviewActivity.class));
+                        finish();
                         break;
                 }
                 return true;
@@ -85,10 +90,10 @@ public class ActiveActivity extends AppCompatActivity {
         adapter = new ActiveProjectAdapter(this, projectsList);
         recyclerView.setAdapter(adapter);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid().toString());
+        DatabaseReference activeRef = FirebaseDatabase.getInstance().getReference();
+        Query activeQuery = activeRef.child(firebaseAuth.getCurrentUser().getUid()).orderByChild("projectStatus").equalTo("aktiv");
 
-        mDatabase.addListenerForSingleValueEvent(valueEventListener);
+        activeQuery.addListenerForSingleValueEvent(valueEventListener);
     }
 
     // Query
@@ -112,7 +117,6 @@ public class ActiveActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
@@ -123,12 +127,32 @@ public class ActiveActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
-
-
+      
         startActivity(new Intent(this, AddProjectActivity.class));
         finish();
         return true;
     }
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("BuzzMe verlassen")
+                .setMessage("Bist du sicher, dass du BuzzMe verlassen möchtest?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        finish();
+                        System.exit(0);
+                    }
+
+                })
+                .setNegativeButton("Nein", null)
+                .show();
+
+}
     }

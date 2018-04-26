@@ -43,6 +43,7 @@ public class InactiveActivity extends AppCompatActivity {
                     case R.id.action_active_project:
                         Toast.makeText(InactiveActivity.this, "Action Active Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(InactiveActivity.this, ActiveActivity.class));
+                        finish();
                         break;
                     case R.id.action_inactive_project:
                         Toast.makeText(InactiveActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
@@ -50,6 +51,7 @@ public class InactiveActivity extends AppCompatActivity {
                     case R.id.action_overview_project:
                         Toast.makeText(InactiveActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(InactiveActivity.this, OverviewActivity.class));
+                        finish();
                         break;
                 }
                 return true;
@@ -64,12 +66,20 @@ public class InactiveActivity extends AppCompatActivity {
         inflater.inflate(R.menu.appbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
+  
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
 
         startActivity(new Intent(this, AddProjectActivity.class));
-    finish();
+        finish();
+      
         return true;
+
+    public void onBackPressed() {
+
+        Intent i = new Intent(InactiveActivity.this, ActiveActivity.class);
+        startActivity(i);
+        finish();
     }
 }

@@ -3,6 +3,7 @@ package com.example.buzzme;
 import java.util.List;
 
 public class Project {
+    private String projectId;
     private String projectName;
     private int projectColor;
     private String projectStatus;
@@ -44,6 +45,11 @@ public class Project {
         this.projectStatus = projectStatus;
     }
 
+    public String getProjectId() {
+        return projectId;
+    }
 
-
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
 }
