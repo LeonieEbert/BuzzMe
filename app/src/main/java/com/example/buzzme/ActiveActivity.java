@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +31,6 @@ import java.util.List;
  */
 
 public class ActiveActivity extends AppCompatActivity {
-    private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     RecyclerView recyclerView;
     ActiveProjectAdapter adapter;
@@ -135,7 +133,6 @@ public class ActiveActivity extends AppCompatActivity {
         finish();
         return true;
     }
-
 
 
     @Override

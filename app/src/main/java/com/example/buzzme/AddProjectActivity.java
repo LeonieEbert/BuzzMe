@@ -72,8 +72,6 @@ public class AddProjectActivity extends AppCompatActivity {
             }
         });
         colorPickerDialog.show();
-
-
     }
 
     public void btnCancel_Click (View v) {

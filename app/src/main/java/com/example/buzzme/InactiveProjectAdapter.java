@@ -17,12 +17,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdapter.ProjectViewHolder>{
+public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProjectAdapter.ProjectViewHolder>{
 
     private Context mCtx;
     private List<Project> projectList;
 
-    public ActiveProjectAdapter(Context mCtx, List<Project> projectList) {
+    public InactiveProjectAdapter(Context mCtx, List<Project> projectList) {
         this.mCtx = mCtx;
         this.projectList = projectList;
     }
@@ -32,7 +32,7 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
     @Override
     public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.active_project_list,parent,false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.inactive_project_list,parent,false);
         return new ProjectViewHolder(view);
     }
 
@@ -46,27 +46,16 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
         holder.switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
                 if (isChecked) {
-
-                }
-                else {
-                    project.setProjectStatus("inaktiv");
+                    project.setProjectStatus("aktiv");
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).setValue(project);
                 }
+                else {
+
+                }
 
             }
         });
-
-        holder.btnBuzzme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
-
 
     }
 
