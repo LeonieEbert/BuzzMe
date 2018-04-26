@@ -1,6 +1,7 @@
 package com.example.buzzme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -36,7 +38,16 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
         Project project = projectList.get(position);
         holder.textViewTitle.setText(project.getProjectName());
 
-        holder.btnBackground.setBackgroundColor(project.getProjectColor());
+        holder.btnBuzzme.setBackgroundColor(project.getProjectColor());
+        holder.btnBuzzme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+            }
+        });
     }
 
     @Override
@@ -46,13 +57,14 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
 
     class ProjectViewHolder extends RecyclerView.ViewHolder{
 
-        Button btnBackground;
+        Button btnBuzzme;
         TextView textViewTitle;
 
         public ProjectViewHolder(View itemView) {
             super(itemView);
-            btnBackground = itemView.findViewById(R.id.btnBackground);
+            btnBuzzme = itemView.findViewById(R.id.btnBuzzme);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
         }
     }
+
 }

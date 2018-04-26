@@ -44,6 +44,7 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
             public void onClick(View v) {
                 mCtx.startActivity(new Intent(mCtx, AddTimeActivity.class));
 
+
             }
         });
     }
