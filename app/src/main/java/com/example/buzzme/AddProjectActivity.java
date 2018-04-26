@@ -40,7 +40,6 @@ public class AddProjectActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_project);
-        setupUI(findViewById(R.id.addProjectLayout));
         projectColor = ContextCompat.getColor(AddProjectActivity.this, R.color.colorPrimary);
         btn = (Button) findViewById(R.id.button_color);
         btn.setBackgroundColor(projectColor);
@@ -55,6 +54,7 @@ public class AddProjectActivity extends AppCompatActivity {
         firebaseAuth= FirebaseAuth.getInstance();
         loadingBar = (ProgressBar)findViewById(R.id.prbarAddProject);
         loadingBar.setVisibility(View.GONE);
+        setupUI(findViewById(R.id.addProjectLayout));
 
     }
     private void openColorPickerDialog(boolean alphaSupport) {

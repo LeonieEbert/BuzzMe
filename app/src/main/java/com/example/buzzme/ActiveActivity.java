@@ -51,6 +51,8 @@ public class ActiveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active);
 
+        firebaseAuth= FirebaseAuth.getInstance();
+
        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -133,7 +135,7 @@ public class ActiveActivity extends AppCompatActivity {
         return true;
     }
 
-    }
+
 
     @Override
     public void onBackPressed() {

@@ -73,9 +73,10 @@ public class InactiveActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, AddProjectActivity.class));
         finish();
-      
-        return true;
 
+        return true;
+    }
+    @Override
     public void onBackPressed() {
 
         Intent i = new Intent(InactiveActivity.this, ActiveActivity.class);
