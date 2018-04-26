@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -26,19 +27,26 @@ import java.util.List;
  * Created by User on 22.03.2018.
  */
 
-public class OverviewActivity extends AppCompatActivity {
+public class OverviewActivity extends AppCompatActivity{
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     RecyclerView recyclerView;
     OverviewProjectAdapter adapter;
     List<Project> projectsList;
 
+    /*    @Override
+        int getContentViewId() {
+            return R.layout.activity_overview;       }
+
+    /*    @Override
+        int getNavigationMenuItemId() {
+            return R.id.action_overview_project;
+        }*/
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
-        firebaseAuth = FirebaseAuth.getInstance();
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(2);
@@ -51,6 +59,7 @@ public class OverviewActivity extends AppCompatActivity {
         adapter = new OverviewProjectAdapter(this, projectsList);
         recyclerView.setAdapter(adapter);
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid().toString());
 
@@ -101,17 +110,31 @@ public class OverviewActivity extends AppCompatActivity {
         public void onCancelled(DatabaseError databaseError) {
 
         }
+
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.appbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+  
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+
+        startActivity(new Intent(this, AddProjectActivity.class));
+        finish();
+      
+        return true;
+    }
 
     public void onBackPressed() {
         Intent i = new Intent(OverviewActivity.this, ActiveActivity.class);
         startActivity(i);
         finish();
-
     }
-
-
-
-
 
 }
