@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 /**
  * Created by User on 26.03.2018.
@@ -35,6 +36,8 @@ public class ActiveActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ActiveProjectAdapter adapter;
     List<Project> projectsList;
+    public static Boolean timerFlag = false;
+    public static Timestamp currentTimestamp;
 
   /*  @Override
     int getContentViewId() {
@@ -154,6 +157,11 @@ public class ActiveActivity extends AppCompatActivity {
                 .setNegativeButton("Nein", null)
                 .show();
 
-}
+        }
+        public static boolean getTimerFlag(){ return timerFlag;}
+    public static void setTimerFlag(boolean b){ timerFlag= b;}
+    public static Timestamp getcurrentTimestamp(){ return currentTimestamp;}
+    public static void setcurrentTimestamp(Timestamp t){ currentTimestamp= t;}
+
 
     }
