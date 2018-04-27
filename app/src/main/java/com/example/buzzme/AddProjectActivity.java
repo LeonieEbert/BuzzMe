@@ -54,7 +54,7 @@ public class AddProjectActivity extends AppCompatActivity {
         firebaseAuth= FirebaseAuth.getInstance();
         loadingBar = (ProgressBar)findViewById(R.id.prbarAddProject);
         loadingBar.setVisibility(View.GONE);
-        setupUI(findViewById(R.id.addProjectLayout));
+        setupUI(findViewById(R.id.add_project_layout));
 
     }
     private void openColorPickerDialog(boolean alphaSupport) {

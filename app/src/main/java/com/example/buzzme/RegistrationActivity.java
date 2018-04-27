@@ -1,18 +1,18 @@
 package com.example.buzzme;
 
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.support.v7.app.AlertDialog;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,7 +34,7 @@ public class RegistrationActivity extends AppCompatActivity {
         firebaseAuth= FirebaseAuth.getInstance();
         loadingBar=findViewById(R.id.prbarRegistration);
         loadingBar.setVisibility(View.GONE);
-
+        setupUI(findViewById(R.id.registration_layout));
     }
 
     public void btnRegistrationUser_Click (View v ) {
@@ -73,6 +73,28 @@ public class RegistrationActivity extends AppCompatActivity {
         startActivity(i);
         finish();
 
+    }
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+    public void setupUI(View view) {
+
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(RegistrationActivity.this);
+                    return false;
+                }
+            });
+        }
+        loadingBar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
 }

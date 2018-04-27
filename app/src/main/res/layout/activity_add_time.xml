@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Beginn: "/>
+            android:text="@string/label_starttime"/>
         <Button
             android:id="@+id/startdate"
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ende: "/>
+            android:text="@string/label_stoptime"/>
         <Button
             android:id="@+id/enddate"
             android:layout_width="wrap_content"
@@ -46,14 +46,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:gravity="right|bottom"
-        android:orientation="horizontal">
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Abbrechen"
+            android:text="@string/btn_canel"
             android:onClick="btnCancel_Click"
             android:drawableLeft="@drawable/ic_save_cancel"/>
 
@@ -62,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/holo_green_light"
-            android:text="Speichern"
+            android:text="@string/btn_save"
             android:onClick="btnSave_Click"
             android:drawableLeft="@drawable/ic_save_check"/>
 
