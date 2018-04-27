@@ -64,11 +64,21 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             @Override
             public void onClick(View v) {
+
                 String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").push().getKey();
                 Date currentTime = Calendar.getInstance().getTime();
-                Timestamp timestamp = new Timestamp(id, currentTime);
-                FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
-
+                if (ActiveActivity.getTimerFlag() == false) {
+                    Timestamp timestamp = new Timestamp(id, currentTime);
+                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
+                    ActiveActivity.setTimerFlag(true);
+                    ActiveActivity.setcurrentTimestamp(timestamp);
+                }
+                else {
+                    Timestamp timestamp =ActiveActivity.getcurrentTimestamp();
+                    timestamp.setStop(currentTime);
+                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
+                    ActiveActivity.setTimerFlag(false);
+                }
             }
         });
 

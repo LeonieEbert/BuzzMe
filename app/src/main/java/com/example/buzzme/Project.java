@@ -53,7 +53,5 @@ public class Project {
         this.projectId = projectId;
     }
 
-    public void addTimestamp (Timestamp timestamp){
-        projectTimes.add(timestamp);
-    }
+
 }
