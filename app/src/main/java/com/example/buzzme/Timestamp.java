@@ -1,5 +1,6 @@
 package com.example.buzzme;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Timestamp {
@@ -29,6 +30,7 @@ public class Timestamp {
     public Timestamp(Date start) {
         this.start = start;
     }
+    public Timestamp(){}
 
     public Date getStart() {
         return start;
