@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
+    android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_100"
@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:max="100"
-        android:layout_below="@+id/framelauout"
         android:indeterminateTint="#1a09d6"
         android:layout_marginTop="-7dp"/>
     <EditText
@@ -23,16 +22,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="E-Mail"
+        android:hint="@string/password"
         android:inputType="textEmailAddress" />
-
     <EditText
         android:id="@+id/txtPasswordLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="Passwort"
+        android:hint="@string/e_mail"
         android:inputType="textPassword" />
     <Button
         android:id="@+id/btnLogin"
@@ -40,28 +38,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:onClick="btnLogin_Click"
-        android:text="Anmelden " />
-
+        android:text="@string/btn_login" />
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google_signIn_btn"
         android:layout_width="match_parent"
         android:layout_marginTop="48dp"
         android:layout_height="wrap_content" />
-
     <Button
         android:id="@+id/btnRegistration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="btnRegistration_Click"
-        android:text="Registrieren" />
-
-
-
-
-
-
-
-
+        android:text="@string/btn_registration" />
 </LinearLayout>
 
 
