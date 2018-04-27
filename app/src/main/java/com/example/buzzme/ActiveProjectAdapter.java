@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import java.util.Calendar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
 import java.util.List;
 
 public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdapter.ProjectViewHolder>{
@@ -59,8 +61,13 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
         });
 
         holder.btnBuzzme.setOnClickListener(new View.OnClickListener() {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             @Override
             public void onClick(View v) {
+                String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").push().getKey();
+                Date currentTime = Calendar.getInstance().getTime();
+                Timestamp timestamp = new Timestamp(id, currentTime);
+                FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
 
             }
         });

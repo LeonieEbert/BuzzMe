@@ -52,4 +52,8 @@ public class Project {
     public void setProjectId(String projectId) {
         this.projectId = projectId;
     }
+
+    public void addTimestamp (Timestamp timestamp){
+        projectTimes.add(timestamp);
+    }
 }

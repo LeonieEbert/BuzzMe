@@ -35,6 +35,7 @@ public class ActiveActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ActiveProjectAdapter adapter;
     List<Project> projectsList;
+    public Boolean timerFlag;
 
   /*  @Override
     int getContentViewId() {
