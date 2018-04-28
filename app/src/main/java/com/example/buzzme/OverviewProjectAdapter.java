@@ -28,6 +28,9 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
     private List<Project> projectList;
     private List<Long> timeList;
 
+
+
+
     public OverviewProjectAdapter(Context mCtx, List<Project> projectList, List<Long> timeList) {
         this.mCtx = mCtx;
         this.projectList = projectList;
@@ -46,7 +49,7 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
 
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
-        Project project = projectList.get(position);
+        final Project project = projectList.get(position);
         Long time= timeList.get(position);
 
 
@@ -60,7 +63,10 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCtx.startActivity(new Intent(mCtx, AddTimeActivity.class));
+                Intent i = new Intent( mCtx ,AddTimeActivity.class);
+                i.putExtra("projectId",project.getProjectId());
+
+                 mCtx.startActivity(i);
 
             }
         });
@@ -86,4 +92,5 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
             textViewTime = itemView.findViewById(R.id.textViewTime);
         }
     }
+
 }

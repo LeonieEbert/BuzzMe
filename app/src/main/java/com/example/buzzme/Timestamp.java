@@ -31,6 +31,11 @@ public class Timestamp {
         this.start = start;
     }
     public Timestamp(){}
+    public Timestamp (String id,Date start, Date stop){
+        this.timestampId= id;
+        this.start=start;
+        this.stop=stop;
+    }
 
     public Date getStart() {
         return start;

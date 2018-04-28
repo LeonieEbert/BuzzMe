@@ -65,9 +65,9 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
             @Override
             public void onClick(View v) {
 
-                String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").push().getKey();
                 Date currentTime = Calendar.getInstance().getTime();
                 if (ActiveActivity.getTimerFlag() == false) {
+                    String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").push().getKey();
                     Timestamp timestamp = new Timestamp(id, currentTime);
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
                     ActiveActivity.setTimerFlag(true);
