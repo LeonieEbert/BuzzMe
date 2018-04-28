@@ -108,20 +108,25 @@ public class AddProjectActivity extends AppCompatActivity {
     }
 
     public void saveProject(){
-        loadingBar.setVisibility(View.VISIBLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        String projectName = txtProjectName.getText().toString().trim();
-        Project project = new Project(projectName, projectColor);
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (!txtProjectName.getText().toString().isEmpty()) {
+            loadingBar.setVisibility(View.VISIBLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            String projectName = txtProjectName.getText().toString().trim();
+            Project project = new Project(projectName, projectColor);
+            FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).push().getKey();
-        project.setProjectId(id);
-        FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(id).setValue(project);
+            String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).push().getKey();
+            project.setProjectId(id);
+            FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(id).setValue(project);
 
-        Toast.makeText(this, "Projekt erstellt",Toast.LENGTH_LONG).show();
-        startActivity(new Intent(AddProjectActivity.this, ActiveActivity.class));
-        finish();
+            Toast.makeText(this, "Projekt erstellt", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(AddProjectActivity.this, ActiveActivity.class));
+            finish();
+        }
+        else {
+            Toast.makeText(this, "Bitte den Namen des Projektes angeben", Toast.LENGTH_LONG).show();
+        }
     }
 
     public static void hideSoftKeyboard(Activity activity) {
