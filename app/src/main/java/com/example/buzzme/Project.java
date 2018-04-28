@@ -7,7 +7,6 @@ public class Project {
     private String projectName;
     private int projectColor;
     private String projectStatus;
-    private Long projectTime;
     private List<Timestamp> projectTimes;
 
     public Project() {
@@ -54,13 +53,7 @@ public class Project {
         this.projectId = projectId;
     }
 
-    public Long getProjectTime() {
-        return projectTime;
-    }
 
-    public void setProjectTime(String projectTime) {
-        this.projectId = projectTime;
-    }
 
 
 

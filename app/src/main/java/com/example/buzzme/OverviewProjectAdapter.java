@@ -1,5 +1,6 @@
 package com.example.buzzme;
 
+import android.arch.lifecycle.HolderFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -26,13 +27,11 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
     private Context mCtx;
     private List<Project> projectList;
     private List<Long> timeList;
-    private Long projectTime = 0L;
-    private DatabaseReference mDatabase;
-    private FirebaseAuth firebaseAuth;
 
-    public OverviewProjectAdapter(Context mCtx, List<Project> projectList) {
+    public OverviewProjectAdapter(Context mCtx, List<Project> projectList, List<Long> timeList) {
         this.mCtx = mCtx;
         this.projectList = projectList;
+        this.timeList= timeList;
 
     }
 
@@ -40,8 +39,6 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
     @NonNull
     @Override
     public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        timeList = new ArrayList<>();
-
         View view = LayoutInflater.from(mCtx).inflate(R.layout.overview_project_list, parent, false);
         return new ProjectViewHolder(view);
 
@@ -50,16 +47,12 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         Project project = projectList.get(position);
-        //calculateProjecttime();
-        //Für Berechnung der Zeit
-        firebaseAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid().toString());
-        mDatabase= mDatabase.child(project.getProjectId()).child("timestamp");
-        mDatabase.addListenerForSingleValueEvent(valueEventListener);
+        Long time= timeList.get(position);
+
 
 
         holder.textViewTitle.setText(project.getProjectName());
-        holder.textViewTime.setText(projectTime.toString());
+        holder.textViewTime.setText(time.toString());
 
         holder.btnEdit.setBackgroundColor(project.getProjectColor());
 
@@ -72,50 +65,9 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
             }
         });
     }
-    //Für Berechnung der Zeit
-    private void calculateProjecttime() {
-        // projectTime= projectTime+1234L;// Funktioniert !!
-      //  timeList.clear();
-        projectTime=0L;
 
-        //timeList.add(1234L);
-        //timeList.add(1234L);
-        for (Long time : timeList) {
-            projectTime = projectTime + time;
 
-        }
-       System.out.print("k: "+projectTime);
 
-    }
-
-    //Für Berechnung der Zeit
-    ValueEventListener valueEventListener = new ValueEventListener() {
-
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            timeList.clear();
-            //timeList.add(1234L);
-            if (dataSnapshot.exists()) {
-                for (DataSnapshot timestampSnapshot : dataSnapshot.getChildren()) {
-                    Timestamp timestamp = timestampSnapshot.getValue(Timestamp.class);
-                    Long timedif = timestamp.getStop().getTime()-timestamp.getStart().getTime();
-                    timeList.add(timedif);
-                    System.out.println("JAAA ein Datensatz");
-
-                }
-                //adapter.notifyDataSetChanged();
-                calculateProjecttime();
-            }
-            else {System.out.println("Nein kein Datensatz");}
-
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-
-    };
 
     @Override
     public int getItemCount() {

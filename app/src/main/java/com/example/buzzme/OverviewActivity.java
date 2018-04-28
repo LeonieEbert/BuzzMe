@@ -33,6 +33,9 @@ public class OverviewActivity extends AppCompatActivity{
     RecyclerView recyclerView;
     OverviewProjectAdapter adapter;
     List<Project> projectsList;
+    List<Long> timestampList;
+    List<Long> timeList;
+
 
     /*    @Override
         int getContentViewId() {
@@ -56,10 +59,19 @@ public class OverviewActivity extends AppCompatActivity{
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         projectsList = new ArrayList<>();
-        adapter = new OverviewProjectAdapter(this, projectsList);
+        timeList = new ArrayList<>();
+        timestampList = new ArrayList<>();
+
+        adapter = new OverviewProjectAdapter(this, projectsList,timeList);
         recyclerView.setAdapter(adapter);
 
+        /*just for testing:
+        timeList.add(1L);
+        timeList.add(2L);
+        timeList.add(3L);*/
+
         firebaseAuth = FirebaseAuth.getInstance();
+        //just for testing
 
         mDatabase = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid().toString());
 
@@ -99,6 +111,14 @@ public class OverviewActivity extends AppCompatActivity{
                 for (DataSnapshot projectSnapshot : dataSnapshot.getChildren()) {
                     Project project = projectSnapshot.getValue(Project.class);
                     projectsList.add(project);
+                    timestampList.clear();
+                    for (DataSnapshot timestampSnapshot : dataSnapshot.child(project.getProjectId()).child("timestamp").getChildren()){
+                        Timestamp timestamp = timestampSnapshot.getValue(Timestamp.class);
+                        Long timedif = timestamp.getStop().getTime()-timestamp.getStart().getTime();
+                        timestampList.add(timedif);
+
+                    }
+                    calculateProjecttime();
 
 
                 }
@@ -136,6 +156,18 @@ public class OverviewActivity extends AppCompatActivity{
         Intent i = new Intent(OverviewActivity.this, ActiveActivity.class);
         startActivity(i);
         finish();
+    }
+    private void calculateProjecttime() {
+
+        Long projectTime=0L;
+
+
+        for (Long time : timestampList) {
+            projectTime = projectTime + time;
+
+        }
+        timeList.add(projectTime);
+
     }
 
 }
