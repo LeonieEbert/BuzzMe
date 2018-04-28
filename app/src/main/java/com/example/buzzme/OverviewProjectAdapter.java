@@ -54,7 +54,9 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         //Für Berechnung der Zeit
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid().toString());
+        mDatabase= mDatabase.child(project.getProjectId()).child("timestamp");
         mDatabase.addListenerForSingleValueEvent(valueEventListener);
+
 
         holder.textViewTitle.setText(project.getProjectName());
         holder.textViewTime.setText(projectTime.toString());
@@ -70,18 +72,19 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
             }
         });
     }
-    //Für Berechnung der Zeit 
+    //Für Berechnung der Zeit
     private void calculateProjecttime() {
         // projectTime= projectTime+1234L;// Funktioniert !!
-        timeList.clear();
+      //  timeList.clear();
         projectTime=0L;
 
-        timeList.add(1234L);
-        timeList.add(1234L);
+        //timeList.add(1234L);
+        //timeList.add(1234L);
         for (Long time : timeList) {
             projectTime = projectTime + time;
 
         }
+       System.out.print("k: "+projectTime);
 
     }
 
@@ -95,13 +98,15 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
             if (dataSnapshot.exists()) {
                 for (DataSnapshot timestampSnapshot : dataSnapshot.getChildren()) {
                     Timestamp timestamp = timestampSnapshot.getValue(Timestamp.class);
-//                    Long timedif = timestamp.getStop().getTime()-timestamp.getStart().getTime();
-//                    timeList.add(timedif);
+                    Long timedif = timestamp.getStop().getTime()-timestamp.getStart().getTime();
+                    timeList.add(timedif);
+                    System.out.println("JAAA ein Datensatz");
 
                 }
                 //adapter.notifyDataSetChanged();
                 calculateProjecttime();
             }
+            else {System.out.println("Nein kein Datensatz");}
 
         }
 

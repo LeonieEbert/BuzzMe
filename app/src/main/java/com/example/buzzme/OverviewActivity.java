@@ -100,6 +100,7 @@ public class OverviewActivity extends AppCompatActivity{
                     Project project = projectSnapshot.getValue(Project.class);
                     projectsList.add(project);
 
+
                 }
                 adapter.notifyDataSetChanged();
             }
