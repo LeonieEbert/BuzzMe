@@ -72,11 +72,13 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
                     ActiveActivity.setTimerFlag(true);
                     ActiveActivity.setcurrentTimestamp(timestamp);
+                    ActiveActivity.setProjectId(project.getProjectId());
                 }
                 else {
                     Timestamp timestamp =ActiveActivity.getcurrentTimestamp();
                     timestamp.setStop(currentTime);
-                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
+                    //Es wird immer das vorher gestartete Project beendet
+                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(ActiveActivity.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
                     ActiveActivity.setTimerFlag(false);
                 }
             }

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +24,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
 
@@ -38,6 +40,7 @@ public class ActiveActivity extends AppCompatActivity {
     List<Project> projectsList;
     public static Boolean timerFlag = false;
     public static Timestamp currentTimestamp;
+    public static String projectId;
 
   /*  @Override
     int getContentViewId() {
@@ -70,11 +73,13 @@ public class ActiveActivity extends AppCompatActivity {
                     case R.id.action_inactive_project:
                         Toast.makeText(ActiveActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ActiveActivity.this, InactiveActivity.class));
+                        finishingTimer();
                         finish();
                         break;
                     case R.id.action_overview_project:
                         Toast.makeText(ActiveActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ActiveActivity.this, OverviewActivity.class));
+                        finishingTimer();
                         finish();
                         break;
                 }
@@ -133,6 +138,7 @@ public class ActiveActivity extends AppCompatActivity {
         // Handle presses on the action bar items
       
         startActivity(new Intent(this, AddProjectActivity.class));
+        finishingTimer();
         finish();
         return true;
     }
@@ -149,6 +155,8 @@ public class ActiveActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+
+                        finishingTimer();
                         finish();
                         System.exit(0);
                     }
@@ -162,6 +170,15 @@ public class ActiveActivity extends AppCompatActivity {
     public static void setTimerFlag(boolean b){ timerFlag= b;}
     public static Timestamp getcurrentTimestamp(){ return currentTimestamp;}
     public static void setcurrentTimestamp(Timestamp t){ currentTimestamp= t;}
+    public static void setProjectId(String s){projectId=s;}
+    public static String getProjectId (){return  projectId;}
+
+    private void finishingTimer(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        currentTimestamp.setStop(Calendar.getInstance().getTime());
+        FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(getProjectId()).child("timestamp").child(currentTimestamp.getTimestampId()).setValue(currentTimestamp);
+        ActiveActivity.setTimerFlag(false);
+    }
 
 
     }
