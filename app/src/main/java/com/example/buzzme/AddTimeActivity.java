@@ -111,6 +111,7 @@ public class AddTimeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         startActivity(new Intent(AddTimeActivity.this, OverviewActivity.class));
+                        finish();
                     }
                 });
 
@@ -137,13 +138,14 @@ public class AddTimeActivity extends AppCompatActivity {
             Toast.makeText(this, "Startpunkt muss vor Endpunkt liegen", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Zeit hinzugefügt", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(AddTimeActivity.this, OverviewActivity.class));
-            //hier muss die Zeit gepusht werden
+
+
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamp").push().getKey();
             Timestamp timestamp = new Timestamp(id,calendarStart.getTime(),calendarStop.getTime());
             FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
-
+            startActivity(new Intent(AddTimeActivity.this, OverviewActivity.class));
+            finish();
         }
     }
 
@@ -208,6 +210,24 @@ public class AddTimeActivity extends AppCompatActivity {
                 btn.setText(timeFormatter.format(calendarStop.getTime()));
             }
         }
+    }
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Projekterstellung abbrechen")
+                .setMessage("Bist du sicher, dass du das Anlegen einer Zeit abbrechen möchtest?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(AddTimeActivity.this, OverviewActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("Nein", null)
+                .show();
     }
 
 

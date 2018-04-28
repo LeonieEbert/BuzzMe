@@ -1,5 +1,6 @@
 package com.example.buzzme;
 
+import android.app.Activity;
 import android.arch.lifecycle.HolderFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -67,6 +68,7 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
                 i.putExtra("projectId",project.getProjectId());
 
                  mCtx.startActivity(i);
+                ((Activity)mCtx).finish();
 
             }
         });
