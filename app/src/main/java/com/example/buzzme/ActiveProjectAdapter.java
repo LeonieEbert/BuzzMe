@@ -10,12 +10,12 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import java.util.Calendar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -50,11 +50,10 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 if (isChecked) {
-
+                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("projectStatus").setValue("aktiv");
                 }
                 else {
-                    project.setProjectStatus("inaktiv");
-                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).setValue(project);
+                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("projectStatus").setValue("inaktiv");
                 }
 
             }
@@ -66,10 +65,10 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
             public void onClick(View v) {
 
                 Date currentTime = Calendar.getInstance().getTime();
-                if (ActiveActivity.getTimerFlag() == false) {
-                    String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").push().getKey();
+                if (!ActiveActivity.getTimerFlag()){
+                    String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamps").push().getKey();
                     Timestamp timestamp = new Timestamp(id, currentTime);
-                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
+                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamps").child(timestamp.getTimestampId()).setValue(timestamp);
                     ActiveActivity.setTimerFlag(true);
                     ActiveActivity.setcurrentTimestamp(timestamp);
                     ActiveActivity.setProjectId(project.getProjectId());
@@ -78,7 +77,7 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
                     Timestamp timestamp =ActiveActivity.getcurrentTimestamp();
                     timestamp.setStop(currentTime);
                     //Es wird immer das vorher gestartete Project beendet
-                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(ActiveActivity.getProjectId()).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
+                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(ActiveActivity.getProjectId()).child("timestamps").child(timestamp.getTimestampId()).setValue(timestamp);
                     ActiveActivity.setTimerFlag(false);
                 }
             }

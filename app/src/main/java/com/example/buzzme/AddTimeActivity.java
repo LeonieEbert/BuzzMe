@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.SupportActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -46,7 +44,7 @@ public class AddTimeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_time);
-        if (getIntent().hasExtra("projectId")==true){
+        if (getIntent().hasExtra("projectId")){
               this.projectId=getIntent().getExtras().getString("projectId");
 
         }
@@ -141,9 +139,9 @@ public class AddTimeActivity extends AppCompatActivity {
 
 
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamp").push().getKey();
+            String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamps").push().getKey();
             Timestamp timestamp = new Timestamp(id,calendarStart.getTime(),calendarStop.getTime());
-            FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamp").child(timestamp.getTimestampId()).setValue(timestamp);
+            FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamps").child(timestamp.getTimestampId()).setValue(timestamp);
             startActivity(new Intent(AddTimeActivity.this, OverviewActivity.class));
             finish();
         }

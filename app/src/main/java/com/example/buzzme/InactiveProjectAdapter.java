@@ -47,11 +47,10 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (isChecked) {
-                    project.setProjectStatus("aktiv");
-                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).setValue(project);
+                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("projectStatus").setValue("aktiv");
                 }
                 else {
-
+                    FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("projectStatus").setValue("inaktiv");
                 }
 
             }

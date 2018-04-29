@@ -54,9 +54,9 @@
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_canel"
+            android:text="@string/btn_cancel"
             android:onClick="btnCancel_Click"
-            android:drawableLeft="@drawable/ic_save_cancel"/>
+            android:drawableStart="@drawable/ic_save_cancel"/>
 
         <Button
             android:id="@+id/button_save"
@@ -65,7 +65,7 @@
             android:backgroundTint="@android:color/holo_green_light"
             android:text="@string/btn_save"
             android:onClick="btnSave_Click"
-            android:drawableLeft="@drawable/ic_save_check"/>
+            android:drawableStart="@drawable/ic_save_check"/>
 
     </LinearLayout>
 

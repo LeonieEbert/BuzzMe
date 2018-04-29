@@ -112,15 +112,13 @@ public class OverviewActivity extends AppCompatActivity{
                     Project project = projectSnapshot.getValue(Project.class);
                     projectsList.add(project);
                     timestampList.clear();
-                    for (DataSnapshot timestampSnapshot : dataSnapshot.child(project.getProjectId()).child("timestamp").getChildren()){
+                    for (DataSnapshot timestampSnapshot : dataSnapshot.child(project.getProjectId()).child("timestamps").getChildren()){
                         Timestamp timestamp = timestampSnapshot.getValue(Timestamp.class);
                         Long timedif = timestamp.getStop().getTime()-timestamp.getStart().getTime();
                         timestampList.add(timedif);
 
                     }
                     calculateProjecttime();
-
-
                 }
                 adapter.notifyDataSetChanged();
             }

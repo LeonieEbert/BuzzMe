@@ -6,7 +6,7 @@
     <string name="nav_item_overview">Übersicht</string>
 
     <string name="btn_save">Speichern</string>
-    <string name="btn_canel">Abbrechen</string>
+    <string name="btn_cancel">Abbrechen</string>
 
     <string name="colorpicker">Farbe</string>
     <string name="projectName">Name</string>
@@ -22,7 +22,7 @@
     <string name="btn_new_account">Konto anlegen</string>
 
     <string name="new_project">Projekt hinzufügen</string>
-    <string name="change_time">Zeit ändern</string>
+    <string name="change_time">Zeit hinzufügen</string>
 
 
 </resources>

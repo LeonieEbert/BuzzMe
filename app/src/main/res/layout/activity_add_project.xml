@@ -62,7 +62,7 @@
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_canel"
+            android:text="@string/btn_cancel"
             android:onClick="btnCancel_Click"
             android:drawableStart="@drawable/ic_save_cancel"/>
 

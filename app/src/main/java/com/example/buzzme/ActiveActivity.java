@@ -26,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Date;
 
 /**
  * Created by User on 26.03.2018.
@@ -56,9 +55,9 @@ public class ActiveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active);
 
-        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-       BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
@@ -133,10 +132,11 @@ public class ActiveActivity extends AppCompatActivity {
         inflater.inflate(R.menu.appbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
-      
+
         startActivity(new Intent(this, AddProjectActivity.class));
         finishingTimer();
         finish();
@@ -150,8 +150,7 @@ public class ActiveActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("BuzzMe verlassen")
                 .setMessage("Bist du sicher, dass du BuzzMe verlassen möchtest?")
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -165,20 +164,41 @@ public class ActiveActivity extends AppCompatActivity {
                 .setNegativeButton("Nein", null)
                 .show();
 
+    }
+
+    public static boolean getTimerFlag() {
+        return timerFlag;
+    }
+
+    public static void setTimerFlag(boolean b) {
+        timerFlag = b;
+    }
+
+    public static Timestamp getcurrentTimestamp() {
+        return currentTimestamp;
+    }
+
+    public static void setcurrentTimestamp(Timestamp t) {
+        currentTimestamp = t;
+    }
+
+    public static void setProjectId(String s) {
+        projectId = s;
+    }
+
+    public static String getProjectId() {
+        return projectId;
+    }
+
+    private void finishingTimer() {
+        if (ActiveActivity.getTimerFlag()) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            currentTimestamp.setStop(Calendar.getInstance().getTime());
+            FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(getProjectId()).child("timestamps").child(currentTimestamp.getTimestampId()).setValue(currentTimestamp);
+            ActiveActivity.setTimerFlag(false);
         }
-        public static boolean getTimerFlag(){ return timerFlag;}
-    public static void setTimerFlag(boolean b){ timerFlag= b;}
-    public static Timestamp getcurrentTimestamp(){ return currentTimestamp;}
-    public static void setcurrentTimestamp(Timestamp t){ currentTimestamp= t;}
-    public static void setProjectId(String s){projectId=s;}
-    public static String getProjectId (){return  projectId;}
-
-    private void finishingTimer(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        currentTimestamp.setStop(Calendar.getInstance().getTime());
-        FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(getProjectId()).child("timestamp").child(currentTimestamp.getTimestampId()).setValue(currentTimestamp);
-        ActiveActivity.setTimerFlag(false);
+        else {}
     }
 
 
-    }
+}

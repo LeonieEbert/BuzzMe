@@ -1,7 +1,6 @@
 package com.example.buzzme;
 
 import android.app.Activity;
-import android.arch.lifecycle.HolderFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -12,15 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProjectAdapter.ProjectViewHolder> {
@@ -28,9 +18,6 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
     private Context mCtx;
     private List<Project> projectList;
     private List<Long> timeList;
-
-
-
 
     public OverviewProjectAdapter(Context mCtx, List<Project> projectList, List<Long> timeList) {
         this.mCtx = mCtx;
@@ -53,13 +40,9 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         final Project project = projectList.get(position);
         Long time= timeList.get(position);
 
-
-
         holder.textViewTitle.setText(project.getProjectName());
-        holder.textViewTime.setText(time.toString());
-
+        holder.textViewTime.setText(calculateTimeComponents(time));
         holder.btnEdit.setBackgroundColor(project.getProjectColor());
-
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +58,21 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
     }
 
 
+    private String calculateTimeComponents(Long time) {
+        Long timeDD = 0L;
+        Long timeHH = 0L;
+        Long timeMM = 0L;
 
+        time = time / (1000 * 60); // Millisekunden > Minuten
+
+        if (time >= 0L) {
+            timeMM = time % 60;             // Restliche Minuten nach Abzug voller Stunden
+            timeHH = (time / 60) % 24;      // Restliche Stunden unter Abzug voller Tage
+            timeDD = (time / (60 * 24));    // Volle Tage
+        } else {
+        }
+        return timeDD + "D " + timeHH + "H " + timeMM + "M";
+    }
 
     @Override
     public int getItemCount() {
