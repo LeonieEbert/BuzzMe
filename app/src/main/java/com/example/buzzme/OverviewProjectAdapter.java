@@ -71,7 +71,7 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
             timeDD = (time / (60 * 24));    // Volle Tage
         } else {
         }
-        return timeDD + "D " + timeHH + "H " + timeMM + "M";
+        return timeDD + "T " + timeHH + "S " + timeMM + "M";
     }
 
     @Override
