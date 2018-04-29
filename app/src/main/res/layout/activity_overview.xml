@@ -7,9 +7,10 @@
     tools:context="com.example.buzzme.OverviewActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/overviewRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/overviewRecyclerView"/>
+        android:layout_marginBottom="?attr/actionBarSize"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
