@@ -69,4 +69,12 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#b74c4c"
+        android:onClick="btnDelete_Click"
+        android:text="@string/btn_deleteproject" />
+
 </LinearLayout>

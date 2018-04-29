@@ -44,8 +44,8 @@ public class AddTimeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_time);
-        if (getIntent().hasExtra("projectId")){
-              this.projectId=getIntent().getExtras().getString("projectId");
+        if (getIntent().hasExtra("projectId")) {
+            this.projectId = getIntent().getExtras().getString("projectId");
 
         }
         calendarStart = Calendar.getInstance();
@@ -137,15 +137,45 @@ public class AddTimeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Zeit hinzugefügt", Toast.LENGTH_LONG).show();
 
-
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamps").push().getKey();
-            Timestamp timestamp = new Timestamp(id,calendarStart.getTime(),calendarStop.getTime());
+            Timestamp timestamp = new Timestamp(id, calendarStart.getTime(), calendarStop.getTime());
             FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamps").child(timestamp.getTimestampId()).setValue(timestamp);
             startActivity(new Intent(AddTimeActivity.this, OverviewActivity.class));
             finish();
         }
     }
+
+    public void btnDelete_Click(View v) {
+
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Projekt löschen")
+                .setMessage("Bist du sicher, dass du das Projekt löschen möchtest?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteProject();
+                        Intent i = new Intent(AddTimeActivity.this, OverviewActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("Nein", null)
+                .show();
+    }
+
+
+    public void deleteProject() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).getKey();
+        FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(id).removeValue();
+        startActivity(new Intent(AddTimeActivity.this, OverviewActivity.class));
+        finish();
+    }
+
 
     private void openDatePickerDialog(Button btn, boolean isStart) {
         if (isStart) {
@@ -209,13 +239,13 @@ public class AddTimeActivity extends AppCompatActivity {
             }
         }
     }
+
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Projekterstellung abbrechen")
-                .setMessage("Bist du sicher, dass du das Anlegen einer Zeit abbrechen möchtest?")
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener()
-                {
+                .setMessage("Bist du sicher, dass du die Bearbeitung des Projektes abbrechen möchtest?")
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent i = new Intent(AddTimeActivity.this, OverviewActivity.class);

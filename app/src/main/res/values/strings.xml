@@ -7,6 +7,7 @@
 
     <string name="btn_save">Speichern</string>
     <string name="btn_cancel">Abbrechen</string>
+    <string name="btn_deleteproject">Projekt löschen</string>
 
     <string name="colorpicker">Farbe</string>
     <string name="projectName">Name</string>
@@ -22,7 +23,9 @@
     <string name="btn_new_account">Konto anlegen</string>
 
     <string name="new_project">Projekt hinzufügen</string>
-    <string name="change_time">Zeit hinzufügen</string>
+    <string name="change_project">Bearbeiten</string>
+
+    <string name="placeholder_duration">3T 8H 5M</string>
 
 
 </resources>

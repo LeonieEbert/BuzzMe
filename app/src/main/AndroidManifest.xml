@@ -41,7 +41,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".AddTimeActivity"
-            android:label="@string/change_time"
+            android:label="@string/change_project"
             android:screenOrientation="portrait" />
     </application>
 
