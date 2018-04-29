@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdapter.ProjectViewHolder>{
+public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdapter.ProjectViewHolder> {
 
     private Context mCtx;
     private List<Project> projectList;
@@ -34,7 +34,7 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
     @Override
     public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.active_project_list,parent,false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.active_project_list, parent, false);
         return new ProjectViewHolder(view);
     }
 
@@ -51,8 +51,7 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
 
                 if (isChecked) {
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("projectStatus").setValue("aktiv");
-                }
-                else {
+                } else {
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("projectStatus").setValue("inaktiv");
                 }
 
@@ -61,20 +60,20 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
 
         holder.btnBuzzme.setOnClickListener(new View.OnClickListener() {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
             @Override
             public void onClick(View v) {
 
                 Date currentTime = Calendar.getInstance().getTime();
-                if (!ActiveActivity.getTimerFlag()){
+                if (!ActiveActivity.getTimerFlag()) {
                     String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamps").push().getKey();
                     Timestamp timestamp = new Timestamp(id, currentTime);
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamps").child(timestamp.getTimestampId()).setValue(timestamp);
                     ActiveActivity.setTimerFlag(true);
                     ActiveActivity.setcurrentTimestamp(timestamp);
                     ActiveActivity.setProjectId(project.getProjectId());
-                }
-                else {
-                    Timestamp timestamp =ActiveActivity.getcurrentTimestamp();
+                } else {
+                    Timestamp timestamp = ActiveActivity.getcurrentTimestamp();
                     timestamp.setStop(currentTime);
                     //Es wird immer das vorher gestartete Project beendet
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(ActiveActivity.getProjectId()).child("timestamps").child(timestamp.getTimestampId()).setValue(timestamp);
@@ -82,8 +81,6 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
                 }
             }
         });
-
-
 
 
     }
@@ -94,7 +91,7 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
     }
 
 
-    class ProjectViewHolder extends RecyclerView.ViewHolder{
+    class ProjectViewHolder extends RecyclerView.ViewHolder {
 
         Button btnBuzzme;
         TextView textViewTitle;
