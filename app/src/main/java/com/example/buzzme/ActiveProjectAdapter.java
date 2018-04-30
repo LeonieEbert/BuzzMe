@@ -1,6 +1,8 @@
 package com.example.buzzme;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdapter.ProjectViewHolder> {
+public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdapter.ProjectViewHolder>{
 
     private Context mCtx;
     private List<Project> projectList;
@@ -34,17 +36,21 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
     @Override
     public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.active_project_list, parent, false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.active_project_list, parent,false);
         return new ProjectViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         final Project project = projectList.get(position);
-
         holder.textViewTitle.setText(project.getProjectName());
 
-        holder.btnBuzzme.setBackgroundColor(project.getProjectColor());
+        final Button btnbuzzme = holder.btnBuzzme;
+        btnbuzzme.setId(btnbuzzme.getId()+position);
+        final GradientDrawable gd = new GradientDrawable();
+        gd.setColor(project.getProjectColor());
+        btnbuzzme.setBackground(gd);
+        btnbuzzme.setTextColor(getTextColorBasedOnBackgroundBrightness(project.getProjectColor()));
         holder.switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -58,12 +64,10 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
             }
         });
 
-        holder.btnBuzzme.setOnClickListener(new View.OnClickListener() {
+        btnbuzzme.setOnClickListener(new View.OnClickListener() {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
             @Override
             public void onClick(View v) {
-
                 Date currentTime = Calendar.getInstance().getTime();
                 if (!ActiveActivity.getTimerFlag()) {
                     String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamps").push().getKey();
@@ -72,16 +76,22 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
                     ActiveActivity.setTimerFlag(true);
                     ActiveActivity.setcurrentTimestamp(timestamp);
                     ActiveActivity.setProjectId(project.getProjectId());
+                    gd.setStroke(10,Color.GREEN, 20,4);
+                    btnbuzzme.setBackground(gd);
+                    ActiveActivity.setBtnId(btnbuzzme.getId());
                 } else {
                     Timestamp timestamp = ActiveActivity.getcurrentTimestamp();
                     timestamp.setStop(currentTime);
                     //Es wird immer das vorher gestartete Project beendet
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(ActiveActivity.getProjectId()).child("timestamps").child(timestamp.getTimestampId()).setValue(timestamp);
                     ActiveActivity.setTimerFlag(false);
+                    Button btn = ((ActiveActivity)mCtx).findViewById(ActiveActivity.getBtnId());
+                    GradientDrawable gd = (GradientDrawable) btn.getBackground();
+                    gd.setStroke(0,0);
+                    btn.setBackground(gd);
                 }
             }
         });
-
 
     }
 
@@ -91,10 +101,10 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
     }
 
 
-    class ProjectViewHolder extends RecyclerView.ViewHolder {
+    class ProjectViewHolder extends RecyclerView.ViewHolder{
 
-        Button btnBuzzme;
-        TextView textViewTitle;
+        private Button btnBuzzme;
+        private TextView textViewTitle;
         private Switch switchStatus;
 
         public ProjectViewHolder(View itemView) {
@@ -102,8 +112,20 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
             btnBuzzme = itemView.findViewById(R.id.btnBuzzme);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             switchStatus = itemView.findViewById(R.id.toggleStatus);
-
         }
+    }
+
+    private static int getBrightness(int color) {
+        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
+        return (int) Math.sqrt(rgb[0] * rgb[0] * .241 + rgb[1]
+                * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
+    }
+
+    public static int getTextColorBasedOnBackgroundBrightness(int color) {
+        if (getBrightness(color) < 130)
+            return Color.WHITE;
+        else
+            return Color.BLACK;
     }
 
 }

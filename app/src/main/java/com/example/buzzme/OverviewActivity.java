@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -82,26 +81,21 @@ public class OverviewActivity extends AppCompatActivity{
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_active_project:
-                        Toast.makeText(OverviewActivity.this, "Action Active Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(OverviewActivity.this, ActiveActivity.class));
                         finish();
                         break;
                     case R.id.action_inactive_project:
-                        Toast.makeText(OverviewActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(OverviewActivity.this, InactiveActivity.class));
                         finish();
                         break;
                     case R.id.action_overview_project:
-                        Toast.makeText(OverviewActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return true;
             }
         });
-
-
-
     }
+
     ValueEventListener valueEventListener = new ValueEventListener() {
 
         @Override
@@ -122,14 +116,12 @@ public class OverviewActivity extends AppCompatActivity{
                 }
                 adapter.notifyDataSetChanged();
             }
-
         }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
 
         }
-
     };
 
     @Override

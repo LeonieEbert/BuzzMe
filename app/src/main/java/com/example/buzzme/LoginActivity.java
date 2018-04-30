@@ -149,9 +149,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void btnRegistration_Click(View v ){
 
-            Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
-            startActivity(i);
-            finish();
+        Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
+        startActivity(i);
+        finish();
     }
     public void btnLogin_Click(View v ){
 
@@ -231,4 +231,3 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 }
-

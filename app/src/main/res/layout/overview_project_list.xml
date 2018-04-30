@@ -23,7 +23,7 @@
                 android:padding="4dp"
                 android:text="@string/change_project"
                 android:textColorLink="@color/cardview_light_background"
-                tools:textColorLink="@color/cardview_light_background" />
+                tools:textColorLink="@color/cardview_light_background"/>
 
             <TextView
                 android:id="@+id/textViewTitle"
@@ -37,7 +37,7 @@
                 android:autoSizeTextType="uniform"
                 android:gravity="center_vertical|center_horizontal"
                 android:paddingTop="5dp"
-                android:text="@string/projectName"
+                android:text="@string/project_name"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000" />
 

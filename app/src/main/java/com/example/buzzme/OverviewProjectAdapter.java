@@ -1,8 +1,9 @@
 package com.example.buzzme;
 
-import android.app.Activity;
 import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +33,6 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
     public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mCtx).inflate(R.layout.overview_project_list, parent, false);
         return new ProjectViewHolder(view);
-
     }
 
     @Override
@@ -44,10 +44,11 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         holder.textViewTime.setText(calculateTimeComponents(time));
         holder.btnEdit.setBackgroundColor(project.getProjectColor());
 
+        holder.btnEdit.setTextColor(getTextColorBasedOnBackgroundBrightness(project.getProjectColor()));
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent( mCtx ,AddTimeActivity.class);
+                Intent i = new Intent( mCtx ,EditProjectActivity.class);
                 i.putExtra("projectId",project.getProjectId());
 
                  mCtx.startActivity(i);
@@ -79,10 +80,10 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         return projectList.size();
     }
 
-    class ProjectViewHolder extends RecyclerView.ViewHolder {
+    class ProjectViewHolder extends RecyclerView.ViewHolder{
 
         Button btnEdit;
-        TextView textViewTitle, textViewTime;
+        TextView textViewTitle,textViewTime;
 
         public ProjectViewHolder(View itemView) {
             super(itemView);
@@ -92,4 +93,16 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         }
     }
 
+    private static int getBrightness(int color) {
+        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
+        return (int) Math.sqrt(rgb[0] * rgb[0] * .241 + rgb[1]
+                * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
+    }
+
+    public static int getTextColorBasedOnBackgroundBrightness(int color) {
+        if (getBrightness(color) < 130)
+            return Color.WHITE;
+        else
+            return Color.BLACK;
+    }
 }

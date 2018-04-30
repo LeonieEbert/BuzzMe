@@ -26,7 +26,7 @@ import java.util.Locale;
  * Created by User on 19.04.2018.
  */
 
-public class AddTimeActivity extends AppCompatActivity {
+public class EditProjectActivity extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
     Button startDateButton;
@@ -43,7 +43,7 @@ public class AddTimeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_time);
+        setContentView(R.layout.activity_edit_project);
         if (getIntent().hasExtra("projectId")) {
             this.projectId = getIntent().getExtras().getString("projectId");
 
@@ -99,7 +99,7 @@ public class AddTimeActivity extends AppCompatActivity {
     }
 
     public void btnCancel_Click(View v) {
-        AlertDialog.Builder cancelAddProjekt = new AlertDialog.Builder(AddTimeActivity.this);
+        AlertDialog.Builder cancelAddProjekt = new AlertDialog.Builder(EditProjectActivity.this);
         cancelAddProjekt.setMessage("Willst du das Hinzufügen einer Zeit wirklich abbrechen?");
         cancelAddProjekt.setCancelable(true);
 
@@ -108,7 +108,7 @@ public class AddTimeActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        startActivity(new Intent(AddTimeActivity.this, OverviewActivity.class));
+                        startActivity(new Intent(EditProjectActivity.this, OverviewActivity.class));
                         finish();
                     }
                 });
@@ -130,18 +130,19 @@ public class AddTimeActivity extends AppCompatActivity {
     }
 
     public void saveProject() {
-        System.out.println("Startzeit: " + calendarStart.getTime().toString());
-        System.out.println("Stoppzeit: " + calendarStop.getTime().toString());
         if (calendarStart.after(calendarStop)) {
             Toast.makeText(this, "Startpunkt muss vor Endpunkt liegen", Toast.LENGTH_LONG).show();
-        } else {
+        }else if(calendarStart.equals(calendarStop)){
+            Toast.makeText(this, "Startpunkt und Endpunkt müssen unterschiedlich sein", Toast.LENGTH_LONG).show();
+        }
+        else {
             Toast.makeText(this, "Zeit hinzugefügt", Toast.LENGTH_LONG).show();
 
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamps").push().getKey();
             Timestamp timestamp = new Timestamp(id, calendarStart.getTime(), calendarStop.getTime());
             FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).child("timestamps").child(timestamp.getTimestampId()).setValue(timestamp);
-            startActivity(new Intent(AddTimeActivity.this, OverviewActivity.class));
+            startActivity(new Intent(EditProjectActivity.this, OverviewActivity.class));
             finish();
         }
     }
@@ -156,7 +157,7 @@ public class AddTimeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteProject();
-                        Intent i = new Intent(AddTimeActivity.this, OverviewActivity.class);
+                        Intent i = new Intent(EditProjectActivity.this, OverviewActivity.class);
                         startActivity(i);
                         finish();
                     }
@@ -172,26 +173,26 @@ public class AddTimeActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).getKey();
         FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(id).removeValue();
-        startActivity(new Intent(AddTimeActivity.this, OverviewActivity.class));
+        startActivity(new Intent(EditProjectActivity.this, OverviewActivity.class));
         finish();
     }
 
 
     private void openDatePickerDialog(Button btn, boolean isStart) {
         if (isStart) {
-            datePickerDialog = new DatePickerDialog(AddTimeActivity.this, new DateSetListener(btn, isStart), calendarStart.get(Calendar.YEAR), calendarStart.get(Calendar.MONTH), calendarStart.get(Calendar.DATE));
+            datePickerDialog = new DatePickerDialog(EditProjectActivity.this, new DateSetListener(btn, isStart), calendarStart.get(Calendar.YEAR), calendarStart.get(Calendar.MONTH), calendarStart.get(Calendar.DATE));
 
         } else {
-            datePickerDialog = new DatePickerDialog(AddTimeActivity.this, new DateSetListener(btn, isStart), calendarStop.get(Calendar.YEAR), calendarStop.get(Calendar.MONTH), calendarStop.get(Calendar.DATE));
+            datePickerDialog = new DatePickerDialog(EditProjectActivity.this, new DateSetListener(btn, isStart), calendarStop.get(Calendar.YEAR), calendarStop.get(Calendar.MONTH), calendarStop.get(Calendar.DATE));
         }
         datePickerDialog.show();
     }
 
     private void openTimePickerDialog(Button btn, boolean isStart) {
         if (isStart) {
-            timePickerDialog = new TimePickerDialog(AddTimeActivity.this, new TimeSetListener(btn, isStart), calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE), true);
+            timePickerDialog = new TimePickerDialog(EditProjectActivity.this, new TimeSetListener(btn, isStart), calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE), true);
         } else {
-            timePickerDialog = new TimePickerDialog(AddTimeActivity.this, new TimeSetListener(btn, isStart), calendarStop.get(Calendar.HOUR_OF_DAY), calendarStop.get(Calendar.MINUTE), true);
+            timePickerDialog = new TimePickerDialog(EditProjectActivity.this, new TimeSetListener(btn, isStart), calendarStop.get(Calendar.HOUR_OF_DAY), calendarStop.get(Calendar.MINUTE), true);
         }
         timePickerDialog.show();
     }
@@ -248,7 +249,7 @@ public class AddTimeActivity extends AppCompatActivity {
                 .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(AddTimeActivity.this, OverviewActivity.class);
+                        Intent i = new Intent(EditProjectActivity.this, OverviewActivity.class);
                         startActivity(i);
                         finish();
                     }

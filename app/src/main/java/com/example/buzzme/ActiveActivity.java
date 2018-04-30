@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +39,7 @@ public class ActiveActivity extends AppCompatActivity {
     public static Boolean timerFlag = false;
     public static Timestamp currentTimestamp;
     public static String projectId;
+    public static int btnId;
 
   /*  @Override
     int getContentViewId() {
@@ -67,16 +67,13 @@ public class ActiveActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_active_project:
-                        Toast.makeText(ActiveActivity.this, "Action Active Project", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_inactive_project:
-                        Toast.makeText(ActiveActivity.this, "Action Inactive Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ActiveActivity.this, InactiveActivity.class));
                         finishingTimer();
                         finish();
                         break;
                     case R.id.action_overview_project:
-                        Toast.makeText(ActiveActivity.this, "Action Overview Project", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ActiveActivity.this, OverviewActivity.class));
                         finishingTimer();
                         finish();
@@ -190,6 +187,9 @@ public class ActiveActivity extends AppCompatActivity {
         return projectId;
     }
 
+    public static void setBtnId (int id) {btnId= id;}
+    public  static int getBtnId () {return btnId;}
+
     private void finishingTimer() {
         if (ActiveActivity.getTimerFlag()) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -199,6 +199,4 @@ public class ActiveActivity extends AppCompatActivity {
         }
         else {}
     }
-
-
 }

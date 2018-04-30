@@ -1,6 +1,7 @@
 package com.example.buzzme;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
         holder.textViewTitle.setText(project.getProjectName());
 
         holder.btnBuzzme.setBackgroundColor(project.getProjectColor());
+        holder.btnBuzzme.setTextColor(getTextColorBasedOnBackgroundBrightness(project.getProjectColor()));
         holder.switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -52,7 +54,6 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
                 else {
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("projectStatus").setValue("inaktiv");
                 }
-
             }
         });
 
@@ -77,6 +78,19 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
             switchStatus = itemView.findViewById(R.id.toggleStatus);
 
         }
+    }
+
+    private static int getBrightness(int color) {
+        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
+        return (int) Math.sqrt(rgb[0] * rgb[0] * .241 + rgb[1]
+                * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
+    }
+
+    public static int getTextColorBasedOnBackgroundBrightness(int color) {
+        if (getBrightness(color) < 130)
+            return Color.WHITE;
+        else
+            return Color.BLACK;
     }
 
 }
