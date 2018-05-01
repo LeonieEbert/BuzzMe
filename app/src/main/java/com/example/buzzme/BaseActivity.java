@@ -37,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.action_active_project:
                         startActivity(new Intent(getBaseContext(), ActiveActivity.class));
+                        finish();
                         break;
                     case R.id.action_inactive_project:
                         startActivity(new Intent(getBaseContext(), InactiveActivity.class));
