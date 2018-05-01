@@ -3,30 +3,30 @@
     android:id="@+id/add_project_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="5dp"
-    android:orientation="vertical"
-    >
+    android:paddingTop="10dp">
+
     <ProgressBar
         android:id="@+id/prbarAddProject"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-7dp"
         android:indeterminate="true"
-        android:max="100"
         android:indeterminateTint="#1a09d6"
-        android:layout_marginTop="-7dp"/>
+        android:max="100" />
 
     <EditText
         android:id="@+id/name_new_project"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
         android:layout_weight="0"
         android:hint="@string/project_name"
-        android:maxLines="1"
-        android:layout_marginBottom="14dp"/>
+        android:maxLines="1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,44 +36,43 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart ="true"
+            android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:textSize="18sp"
-            android:text="@string/colorpicker" />
+            android:text="@string/colorpicker"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/button_color"
             android:layout_width="@dimen/color_button"
             android:layout_height="@dimen/color_button"
-            android:background="@drawable/button_with_border"
-            android:layout_alignParentEnd ="true"/>
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:gravity="end"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_cancel"
+            android:drawableStart="@drawable/ic_save_cancel"
             android:onClick="btnCancel_Click"
-            android:drawableStart="@drawable/ic_save_cancel"/>
+            android:text="@string/btn_cancel" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
-            android:onClick="btnSave_Click"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/holo_green_light"
-            android:text="@string/btn_save"
-            android:drawableStart="@drawable/ic_save_check"/>
+            android:drawableStart="@drawable/ic_save_check"
+            android:onClick="btnSave_Click"
+            android:text="@string/btn_save" />
 
     </LinearLayout>
 

@@ -27,17 +27,17 @@ import java.util.Locale;
  */
 
 public class EditProjectActivity extends AppCompatActivity {
-    DatePickerDialog datePickerDialog;
-    TimePickerDialog timePickerDialog;
-    Button startDateButton;
-    Button startTimeButton;
-    Button endDateButton;
-    Button endTimeButton;
-    Calendar calendarStart;
-    Calendar calendarStop;
-    SimpleDateFormat dateFormatter;
-    SimpleDateFormat timeFormatter;
-    String projectId;
+    private DatePickerDialog datePickerDialog;
+    private TimePickerDialog timePickerDialog;
+    private Button startDateButton;
+    private Button startTimeButton;
+    private Button stopDateButton;
+    private Button stopTimeButton;
+    private Calendar calendarStart;
+    private Calendar calendarStop;
+    private SimpleDateFormat dateFormatter;
+    private SimpleDateFormat timeFormatter;
+    private String projectId;
 
 
     @Override
@@ -45,14 +45,13 @@ public class EditProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_project);
         if (getIntent().hasExtra("projectId")) {
-            this.projectId = getIntent().getExtras().getString("projectId");
-
+            projectId = getIntent().getExtras().getString("projectId");
         }
-        calendarStart = Calendar.getInstance();
-        calendarStop = Calendar.getInstance();
+
         dateFormatter = new SimpleDateFormat("EE, dd.MM.yyyy", Locale.GERMAN);
         timeFormatter = new SimpleDateFormat("HH:mm");
 
+        calendarStart = Calendar.getInstance();
 
         startDateButton = (Button) findViewById(R.id.startdate);
         startDateButton.setText(dateFormatter.format(calendarStart.getTime()));
@@ -60,15 +59,6 @@ public class EditProjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openDatePickerDialog(startDateButton, true);
-            }
-        });
-
-        endDateButton = (Button) findViewById(R.id.enddate);
-        endDateButton.setText(dateFormatter.format(calendarStart.getTime()));
-        endDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDatePickerDialog(endDateButton, false);
             }
         });
 
@@ -84,45 +74,32 @@ public class EditProjectActivity extends AppCompatActivity {
             }
         });
 
-        endTimeButton = (Button) findViewById(R.id.endtime);
-        calendarStop.set(Calendar.HOUR_OF_DAY, 0);
-        calendarStop.set(Calendar.MINUTE, 0);
-        calendarStop.set(Calendar.SECOND, 0);
-        endTimeButton.setText(timeFormatter.format(calendarStop.getTime()));
-        endTimeButton.setOnClickListener(new View.OnClickListener() {
+        calendarStop = Calendar.getInstance();
+
+        stopDateButton = (Button) findViewById(R.id.enddate);
+        stopDateButton.setText(dateFormatter.format(calendarStop.getTime()));
+        stopDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openTimePickerDialog(endTimeButton, false);
+                openDatePickerDialog(stopDateButton, false);
             }
         });
 
+        stopTimeButton = (Button) findViewById(R.id.endtime);
+        calendarStop.set(Calendar.HOUR_OF_DAY, 0);
+        calendarStop.set(Calendar.MINUTE, 0);
+        calendarStop.set(Calendar.SECOND, 0);
+        stopTimeButton.setText(timeFormatter.format(calendarStop.getTime()));
+        stopTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openTimePickerDialog(stopTimeButton, false);
+            }
+        });
     }
 
     public void btnCancel_Click(View v) {
-        AlertDialog.Builder cancelAddProjekt = new AlertDialog.Builder(EditProjectActivity.this);
-        cancelAddProjekt.setMessage("Willst du das Hinzufügen einer Zeit wirklich abbrechen?");
-        cancelAddProjekt.setCancelable(true);
-
-        cancelAddProjekt.setPositiveButton(
-                "JA",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        startActivity(new Intent(EditProjectActivity.this, OverviewActivity.class));
-                        finish();
-                    }
-                });
-
-        cancelAddProjekt.setNegativeButton(
-                "NEIN",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = cancelAddProjekt.create();
-        alert11.show();
+        showAlertDialogCanelEditProject();
     }
 
     public void btnSave_Click(View v) {
@@ -132,10 +109,9 @@ public class EditProjectActivity extends AppCompatActivity {
     public void saveProject() {
         if (calendarStart.after(calendarStop)) {
             Toast.makeText(this, "Startpunkt muss vor Endpunkt liegen", Toast.LENGTH_LONG).show();
-        }else if(calendarStart.equals(calendarStop)){
+        } else if (calendarStart.equals(calendarStop)) {
             Toast.makeText(this, "Startpunkt und Endpunkt müssen unterschiedlich sein", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             Toast.makeText(this, "Zeit hinzugefügt", Toast.LENGTH_LONG).show();
 
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -148,7 +124,6 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     public void btnDelete_Click(View v) {
-
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Projekt löschen")
@@ -157,26 +132,21 @@ public class EditProjectActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteProject();
-                        Intent i = new Intent(EditProjectActivity.this, OverviewActivity.class);
-                        startActivity(i);
+                        startActivity(new Intent(EditProjectActivity.this, OverviewActivity.class));
                         finish();
                     }
-
                 })
                 .setNegativeButton("Nein", null)
                 .show();
     }
 
-
     public void deleteProject() {
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(projectId).getKey();
         FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(id).removeValue();
         startActivity(new Intent(EditProjectActivity.this, OverviewActivity.class));
         finish();
     }
-
 
     private void openDatePickerDialog(Button btn, boolean isStart) {
         if (isStart) {
@@ -201,7 +171,7 @@ public class EditProjectActivity extends AppCompatActivity {
         Button btn;
         boolean isStartTime;
 
-        public DateSetListener(Button btn, boolean isStartTime) {
+        protected DateSetListener(Button btn, boolean isStartTime) {
             this.btn = btn;
             this.isStartTime = isStartTime;
         }
@@ -222,7 +192,7 @@ public class EditProjectActivity extends AppCompatActivity {
         Button btn;
         boolean isStart;
 
-        public TimeSetListener(Button btn, boolean isStart) {
+        protected TimeSetListener(Button btn, boolean isStart) {
             this.btn = btn;
             this.isStart = isStart;
         }
@@ -241,16 +211,21 @@ public class EditProjectActivity extends AppCompatActivity {
         }
     }
 
+    //dialog if back button is pressed
+    @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
+        showAlertDialogCanelEditProject();
+    }
+
+    public AlertDialog showAlertDialogCanelEditProject(){
+        return new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Projekterstellung abbrechen")
+                .setTitle("Projektbearbeitung abbrechen")
                 .setMessage("Bist du sicher, dass du die Bearbeitung des Projektes abbrechen möchtest?")
                 .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(EditProjectActivity.this, OverviewActivity.class);
-                        startActivity(i);
+                        startActivity(new Intent(EditProjectActivity.this, OverviewActivity.class));
                         finish();
                     }
 
@@ -258,6 +233,5 @@ public class EditProjectActivity extends AppCompatActivity {
                 .setNegativeButton("Nein", null)
                 .show();
     }
-
 
 }

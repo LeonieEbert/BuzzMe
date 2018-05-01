@@ -12,10 +12,10 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-7dp"
         android:indeterminate="true"
-        android:max="100"
         android:indeterminateTint="#1a09d6"
-        android:layout_marginTop="-7dp"/>
+        android:max="100" />
 
     <EditText
         android:id="@+id/txtEmailLogin"
@@ -42,11 +42,13 @@
         android:layout_marginTop="24dp"
         android:onClick="btnLogin_Click"
         android:text="@string/btn_login" />
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google_signIn_btn"
         android:layout_width="match_parent"
-        android:layout_marginTop="48dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp" />
+
     <Button
         android:id="@+id/btnRegistration"
         android:layout_width="match_parent"

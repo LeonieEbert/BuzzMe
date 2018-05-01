@@ -1,7 +1,6 @@
 package com.example.buzzme;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,13 +11,14 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.buzzme.Utils.ColorUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProjectAdapter.ProjectViewHolder>{
+public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProjectAdapter.ProjectViewHolder> {
 
     private Context mCtx;
     private List<Project> projectList;
@@ -32,8 +32,7 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
     @NonNull
     @Override
     public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.inactive_project_list,parent,false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.inactive_project_list, parent, false);
         return new ProjectViewHolder(view);
     }
 
@@ -44,14 +43,13 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
         holder.textViewTitle.setText(project.getProjectName());
 
         holder.btnBuzzme.setBackgroundColor(project.getProjectColor());
-        holder.btnBuzzme.setTextColor(getTextColorBasedOnBackgroundBrightness(project.getProjectColor()));
+        holder.btnBuzzme.setTextColor(new ColorUtil().getTextColorBasedOnBackgroundBrightness(project.getProjectColor()));
         holder.switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (isChecked) {
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("projectStatus").setValue("aktiv");
-                }
-                else {
+                } else {
                     FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("projectStatus").setValue("inaktiv");
                 }
             }
@@ -64,8 +62,7 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
         return projectList.size();
     }
 
-
-    class ProjectViewHolder extends RecyclerView.ViewHolder{
+    class ProjectViewHolder extends RecyclerView.ViewHolder {
 
         Button btnBuzzme;
         TextView textViewTitle;
@@ -79,18 +76,4 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
 
         }
     }
-
-    private static int getBrightness(int color) {
-        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
-        return (int) Math.sqrt(rgb[0] * rgb[0] * .241 + rgb[1]
-                * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
-    }
-
-    public static int getTextColorBasedOnBackgroundBrightness(int color) {
-        if (getBrightness(color) < 130)
-            return Color.WHITE;
-        else
-            return Color.BLACK;
-    }
-
 }

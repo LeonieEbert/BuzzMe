@@ -1,13 +1,10 @@
 package com.example.buzzme;
 
-import java.util.List;
-
 public class Project {
     private String projectId;
     private String projectName;
     private int projectColor;
     private String projectStatus;
-    private List<Timestamp> projectTimes;
 
     public Project() {
         this.projectName = "NONAME";
@@ -52,9 +49,6 @@ public class Project {
     public void setProjectId(String projectId) {
         this.projectId = projectId;
     }
-
-
-
 
 
 }

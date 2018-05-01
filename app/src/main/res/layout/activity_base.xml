@@ -22,5 +22,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/bottom_navigation_main" />
+        app:menu="@menu/bottom_navigation_menu" />
 </android.support.constraint.ConstraintLayout>

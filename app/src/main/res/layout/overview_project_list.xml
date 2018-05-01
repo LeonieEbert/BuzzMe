@@ -23,14 +23,13 @@
                 android:padding="4dp"
                 android:text="@string/change_project"
                 android:textColorLink="@color/cardview_light_background"
-                tools:textColorLink="@color/cardview_light_background"/>
+                tools:textColorLink="@color/cardview_light_background" />
 
             <TextView
                 android:id="@+id/textViewTitle"
-                android:layout_width="240dp"
+                android:layout_width="230dp"
                 android:layout_height="43dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="5dp"
                 android:autoSizeMaxTextSize="100dp"
                 android:autoSizeMinTextSize="12dp"
                 android:autoSizeStepGranularity="2sp"
@@ -43,7 +42,7 @@
 
             <TextView
                 android:id="@+id/textViewTime"
-                android:layout_width="240dp"
+                android:layout_width="230dp"
                 android:layout_height="47dp"
                 android:layout_alignBottom="@+id/btnEdit"
                 android:layout_alignParentEnd="true"

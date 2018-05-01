@@ -1,6 +1,5 @@
 package com.example.buzzme;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class Timestamp {
@@ -8,33 +7,29 @@ public class Timestamp {
     private Date start;
     private Date stop;
 
-
-    public Timestamp(String id ,Date start){
-        setTimestampId(id);
-        setStart(start);
-        setStop(start);
+    public Timestamp(String id, Date start, Date stop) {
+        this.timestampId = id;
+        this.start = start;
+        this.stop = stop;
     }
 
-
-
-
-    public String getTimestampId() {
-        return timestampId;
-    }
-    public void setTimestampId(String timestampId) {
-        this.timestampId = timestampId;
+    public Timestamp(String id, Date start) {
+        this(id, start, start);
     }
 
-
+    public Timestamp(){
+    }
 
     public Timestamp(Date start) {
         this.start = start;
     }
-    public Timestamp(){}
-    public Timestamp (String id,Date start, Date stop){
-        this.timestampId= id;
-        this.start=start;
-        this.stop=stop;
+
+    public String getTimestampId() {
+        return timestampId;
+    }
+
+    public void setTimestampId(String timestampId) {
+        this.timestampId = timestampId;
     }
 
     public Date getStart() {

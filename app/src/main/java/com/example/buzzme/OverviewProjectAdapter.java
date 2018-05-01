@@ -1,9 +1,8 @@
 package com.example.buzzme;
 
-import android.content.Context;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.buzzme.Utils.ColorUtil;
 
 import java.util.List;
 
@@ -23,10 +24,8 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
     public OverviewProjectAdapter(Context mCtx, List<Project> projectList, List<Long> timeList) {
         this.mCtx = mCtx;
         this.projectList = projectList;
-        this.timeList= timeList;
-
+        this.timeList = timeList;
     }
-
 
     @NonNull
     @Override
@@ -38,26 +37,23 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         final Project project = projectList.get(position);
-        Long time= timeList.get(position);
+        Long time = timeList.get(position);
 
         holder.textViewTitle.setText(project.getProjectName());
         holder.textViewTime.setText(calculateTimeComponents(time));
         holder.btnEdit.setBackgroundColor(project.getProjectColor());
 
-        holder.btnEdit.setTextColor(getTextColorBasedOnBackgroundBrightness(project.getProjectColor()));
+        holder.btnEdit.setTextColor(new ColorUtil().getTextColorBasedOnBackgroundBrightness(project.getProjectColor()));
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent( mCtx ,EditProjectActivity.class);
-                i.putExtra("projectId",project.getProjectId());
-
-                 mCtx.startActivity(i);
-                ((Activity)mCtx).finish();
-
+                Intent i = new Intent(mCtx, EditProjectActivity.class);
+                i.putExtra("projectId", project.getProjectId());
+                mCtx.startActivity(i);
+                ((Activity) mCtx).finish();
             }
         });
     }
-
 
     private String calculateTimeComponents(Long time) {
         Long timeDD = 0L;
@@ -80,10 +76,10 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         return projectList.size();
     }
 
-    class ProjectViewHolder extends RecyclerView.ViewHolder{
+    class ProjectViewHolder extends RecyclerView.ViewHolder {
 
         Button btnEdit;
-        TextView textViewTitle,textViewTime;
+        TextView textViewTitle, textViewTime;
 
         public ProjectViewHolder(View itemView) {
             super(itemView);
@@ -93,16 +89,4 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         }
     }
 
-    private static int getBrightness(int color) {
-        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
-        return (int) Math.sqrt(rgb[0] * rgb[0] * .241 + rgb[1]
-                * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
-    }
-
-    public static int getTextColorBasedOnBackgroundBrightness(int color) {
-        if (getBrightness(color) < 130)
-            return Color.WHITE;
-        else
-            return Color.BLACK;
-    }
 }
