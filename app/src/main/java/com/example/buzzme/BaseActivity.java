@@ -24,7 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
 
-        //initialize BottomNavigationBar
+        //initialize BottomNavigationView
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         Menu menu = bottomNavigationView.getMenu();

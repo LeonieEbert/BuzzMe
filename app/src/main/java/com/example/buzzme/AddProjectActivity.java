@@ -98,16 +98,15 @@ public class AddProjectActivity extends AppCompatActivity {
         showAlertDialogCanelAddProject();
     }
 
-    public AlertDialog showAlertDialogCanelAddProject(){
-        return new AlertDialog.Builder(this)
+    public void showAlertDialogCanelAddProject(){
+        new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Projekterstellung abbrechen")
                 .setMessage("Bist du sicher, dass du das Erstellen des Projektes abbrechen möchtest?")
                 .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(AddProjectActivity.this, ActiveActivity.class);
-                        startActivity(i);
+                        startActivity(new Intent(AddProjectActivity.this, ActiveActivity.class));
                         finish();
                     }
 

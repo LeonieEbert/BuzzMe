@@ -19,8 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdapter.ProjectViewHolder> {
@@ -67,11 +65,8 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
         });
 
         btnbuzzme.setOnClickListener(new View.OnClickListener() {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
             @Override
             public void onClick(View v) {
-                Date currentTime = Calendar.getInstance().getTime();
                 if (!ActiveActivity.getTimerFlag()) {
                     timerUtil.startingTimer(project);
                     gd.setStroke(10, Color.GREEN, 20, 4);

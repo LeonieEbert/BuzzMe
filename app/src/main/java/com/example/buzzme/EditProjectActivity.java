@@ -27,8 +27,6 @@ import java.util.Locale;
  */
 
 public class EditProjectActivity extends AppCompatActivity {
-    private DatePickerDialog datePickerDialog;
-    private TimePickerDialog timePickerDialog;
     private Button startDateButton;
     private Button startTimeButton;
     private Button stopDateButton;
@@ -107,10 +105,12 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     public void saveProject() {
-        if (calendarStart.after(calendarStop)) {
+        if (calendarStart.getTime().after(calendarStop.getTime())) {
             Toast.makeText(this, "Startpunkt muss vor Endpunkt liegen", Toast.LENGTH_LONG).show();
-        } else if (calendarStart.equals(calendarStop)) {
+        } else if (calendarStart.getTime().equals(calendarStop.getTime())) {
             Toast.makeText(this, "Startpunkt und Endpunkt müssen unterschiedlich sein", Toast.LENGTH_LONG).show();
+        } else if (calendarStart.getTime().after(Calendar.getInstance().getTime()) || calendarStop.getTime().after(Calendar.getInstance().getTime())) {
+            Toast.makeText(this, "Zeiten, die in der Zukunft liegen, können nicht hinzugefügt werden", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Zeit hinzugefügt", Toast.LENGTH_LONG).show();
 
@@ -149,6 +149,7 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     private void openDatePickerDialog(Button btn, boolean isStart) {
+        DatePickerDialog datePickerDialog;
         if (isStart) {
             datePickerDialog = new DatePickerDialog(EditProjectActivity.this, new DateSetListener(btn, isStart), calendarStart.get(Calendar.YEAR), calendarStart.get(Calendar.MONTH), calendarStart.get(Calendar.DATE));
 
@@ -159,6 +160,7 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     private void openTimePickerDialog(Button btn, boolean isStart) {
+        TimePickerDialog timePickerDialog;
         if (isStart) {
             timePickerDialog = new TimePickerDialog(EditProjectActivity.this, new TimeSetListener(btn, isStart), calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE), true);
         } else {
@@ -168,10 +170,10 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     class DateSetListener implements DatePickerDialog.OnDateSetListener {
-        Button btn;
-        boolean isStartTime;
+        private Button btn;
+        private boolean isStartTime;
 
-        protected DateSetListener(Button btn, boolean isStartTime) {
+        public DateSetListener(Button btn, boolean isStartTime) {
             this.btn = btn;
             this.isStartTime = isStartTime;
         }
@@ -189,10 +191,10 @@ public class EditProjectActivity extends AppCompatActivity {
     }
 
     class TimeSetListener implements TimePickerDialog.OnTimeSetListener {
-        Button btn;
-        boolean isStart;
+        private Button btn;
+        private boolean isStart;
 
-        protected TimeSetListener(Button btn, boolean isStart) {
+        public TimeSetListener(Button btn, boolean isStart) {
             this.btn = btn;
             this.isStart = isStart;
         }
@@ -217,8 +219,8 @@ public class EditProjectActivity extends AppCompatActivity {
         showAlertDialogCanelEditProject();
     }
 
-    public AlertDialog showAlertDialogCanelEditProject(){
-        return new AlertDialog.Builder(this)
+    public void showAlertDialogCanelEditProject() {
+        new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Projektbearbeitung abbrechen")
                 .setMessage("Bist du sicher, dass du die Bearbeitung des Projektes abbrechen möchtest?")

@@ -120,10 +120,10 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             startActivity(new Intent(getApplicationContext(), ActiveActivity.class));
                             finish();
-                            Toast.makeText(getApplicationContext(), "User login successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Anmeldung erfolgreich", Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "User login failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Anmeldung fehlgeschlagen", Toast.LENGTH_SHORT).show();
                         }
                         loadingBar.setVisibility(View.GONE);
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Login succesful", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(LoginActivity.this, ActiveActivity.class));
                         finish();
                     } else {
@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Toast.makeText(LoginActivity.this, "Bitte Email Adresse und Passwort angeben", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Bitte E-Mail-Adresse und Passwort angeben", Toast.LENGTH_LONG).show();
         }
     }
 

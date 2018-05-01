@@ -20,7 +20,7 @@ public class TimerUtil {
         user = FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    public void startingTimer(Project project){
+    public void startingTimer(Project project) {
         String id = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamps").push().getKey();
         Timestamp timestamp = new Timestamp(id, Calendar.getInstance().getTime());
         FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(project.getProjectId()).child("timestamps").child(timestamp.getTimestampId()).setValue(timestamp);
@@ -30,12 +30,9 @@ public class TimerUtil {
     }
 
     public void finishingTimer() {
-        if (ActiveActivity.getTimerFlag()) {
-            Timestamp currentTimestamp = ActiveActivity.getcurrentTimestamp();
-            currentTimestamp.setStop(Calendar.getInstance().getTime());
-            FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(ActiveActivity.getProjectId()).child("timestamps").child(currentTimestamp.getTimestampId()).setValue(currentTimestamp);
-            ActiveActivity.setTimerFlag(false);
-        } else {
-        }
+        Timestamp currentTimestamp = ActiveActivity.getcurrentTimestamp();
+        currentTimestamp.setStop(Calendar.getInstance().getTime());
+        FirebaseDatabase.getInstance().getReference().child(user.getUid()).child(ActiveActivity.getProjectId()).child("timestamps").child(currentTimestamp.getTimestampId()).setValue(currentTimestamp);
+        ActiveActivity.setTimerFlag(false);
     }
 }

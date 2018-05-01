@@ -45,20 +45,19 @@ public class RegistrationActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
-                        startActivity(i);
+                        Toast.makeText(RegistrationActivity.this, "Registrierung erfolgreich", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                        finish();
                     } else {
                         Log.e("ERROR", task.getException().toString());
                         Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                     loadingBar.setVisibility(View.GONE);
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
                 }
             });
         } else {
-            Toast.makeText(RegistrationActivity.this, "Bitte Email Adresse und Passwort angeben", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistrationActivity.this, "Bitte E-Mail-Adresse und Passwort angeben", Toast.LENGTH_LONG).show();
         }
     }
 

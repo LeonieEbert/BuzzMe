@@ -73,7 +73,6 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
             btnBuzzme = itemView.findViewById(R.id.btnBuzzme);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             switchStatus = itemView.findViewById(R.id.toggleStatus);
-
         }
     }
 }

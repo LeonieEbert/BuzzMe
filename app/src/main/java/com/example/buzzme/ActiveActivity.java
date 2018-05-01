@@ -83,7 +83,8 @@ public class ActiveActivity extends BaseActivity {
                 .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new TimerUtil().finishingTimer();
+                        if (ActiveActivity.getTimerFlag())
+                            new TimerUtil().finishingTimer();
                         finish();
                         System.exit(0);
                     }
@@ -130,6 +131,7 @@ public class ActiveActivity extends BaseActivity {
     int getContentViewId() {
         return R.layout.activity_active;
     }
+
     @Override
     int getNavigationMenuItemId() {
         return 0;
