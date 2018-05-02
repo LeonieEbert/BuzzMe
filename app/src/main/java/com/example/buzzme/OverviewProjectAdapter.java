@@ -14,7 +14,12 @@ import android.widget.TextView;
 import com.example.buzzme.Utils.ColorUtil;
 
 import java.util.List;
-
+/**
+ * Created by User on 22.03.2018.
+ *  Funktion:
+ * Darstellung der Information  eines  Projektes.
+ *
+ */
 public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProjectAdapter.ProjectViewHolder> {
 
     private Context mCtx;
@@ -33,7 +38,7 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
         View view = LayoutInflater.from(mCtx).inflate(R.layout.overview_project_list, parent, false);
         return new ProjectViewHolder(view);
     }
-
+    // Zuweisung der Daten zum Layout
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         final Project project = projectList.get(position);
@@ -54,7 +59,7 @@ public class OverviewProjectAdapter extends RecyclerView.Adapter<OverviewProject
             }
         });
     }
-
+//Umrechnung der Millisekunden in Tage Stunden und Minuten
     private String calculateTimeComponents(Long time) {
         Long timeDD = 0L;
         Long timeHH = 0L;

@@ -24,6 +24,9 @@ import java.util.Locale;
 
 /**
  * Created by User on 19.04.2018.
+ *
+ * Funktion:
+ * hier können Zeiten manuell hinzugefügt werden und Pdas Projekt gelöscht werden
  */
 
 public class EditProjectActivity extends AppCompatActivity {
@@ -147,7 +150,7 @@ public class EditProjectActivity extends AppCompatActivity {
         startActivity(new Intent(EditProjectActivity.this, OverviewActivity.class));
         finish();
     }
-
+    //Date Picker der Zeiterfassung
     private void openDatePickerDialog(Button btn, boolean isStart) {
         DatePickerDialog datePickerDialog;
         if (isStart) {
@@ -158,6 +161,7 @@ public class EditProjectActivity extends AppCompatActivity {
         }
         datePickerDialog.show();
     }
+
 
     private void openTimePickerDialog(Button btn, boolean isStart) {
         TimePickerDialog timePickerDialog;

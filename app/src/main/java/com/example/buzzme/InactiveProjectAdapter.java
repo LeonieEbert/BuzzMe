@@ -18,6 +18,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
+/**
+ * Created by User on 22.03.2018.
+ *  Funktion:
+ * Darstellung der Information  eines aktiven Projektes.
+ *
+ */
 public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProjectAdapter.ProjectViewHolder> {
 
     private Context mCtx;
@@ -35,7 +41,7 @@ public class InactiveProjectAdapter extends RecyclerView.Adapter<InactiveProject
         View view = LayoutInflater.from(mCtx).inflate(R.layout.inactive_project_list, parent, false);
         return new ProjectViewHolder(view);
     }
-
+    // Zuweisung der Daten zum Layout
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         final Project project = projectList.get(position);

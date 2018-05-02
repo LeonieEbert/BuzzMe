@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 /**
  * Created by User on 30.04.2018.
+ * Methode um die Schriftfarbe des Projektes in Abhängigkeit der Hintergrundfarbe festzulegen
  */
 
 public class ColorUtil {

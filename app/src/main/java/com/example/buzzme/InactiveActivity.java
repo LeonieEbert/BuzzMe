@@ -19,6 +19,9 @@ import java.util.List;
 
 /**
  * Created by User on 22.03.2018.
+ *  Funktion:
+ * Darstellung der inaktiven Projekte.
+ * Übermittlung der Daten aus Firebase an den Adapter(InactiveProjectAdapter)
  */
 
 public class InactiveActivity extends BaseActivity {
@@ -47,9 +50,8 @@ public class InactiveActivity extends BaseActivity {
         inactiveQuery.addListenerForSingleValueEvent(valueEventListener);
     }
 
-    // Query
     ValueEventListener valueEventListener = new ValueEventListener() {
-
+        //Snapshot: Die Projektliste des Users wird  an den Adapter übergeben. Vermutlich auch auslagerbar
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             projectsList.clear();

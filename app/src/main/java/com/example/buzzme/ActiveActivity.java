@@ -20,12 +20,18 @@ import java.util.List;
 
 /**
  * Created by User on 26.03.2018.
- * Altered by ATraulsen on 21.04.2018 - inserted query layout and stuff
+ *
+ *
+ * Funktion:
+ * Darstellung der aktiven Projekte.
+ * Übermittlung der Daten aus Firebase an den Adapter(ActiveProjectAdapter)
+ *
  */
 
 public class ActiveActivity extends BaseActivity {
     private ActiveProjectAdapter adapter;
     private List<Project> projectsList;
+    //Diese Variablen könnten bestimmt ausgelagert werden ;)
     private static Boolean timerFlag = false;
     private static Timestamp currentTimestamp;
     private static String projectId;
@@ -52,9 +58,9 @@ public class ActiveActivity extends BaseActivity {
         activeQuery.addListenerForSingleValueEvent(valueEventListener);
     }
 
-    // Query
-    ValueEventListener valueEventListener = new ValueEventListener() {
 
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        //Snapshot: Die Projektliste des Users wird  an den Adapter übergeben. Vermutlich auch auslagerbar
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             projectsList.clear();

@@ -21,6 +21,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
+/**
+ * Created by User on 22.03.2018.
+ *  Funktion:
+ * Darstellung der Information  eines aktiven Projektes.
+ *
+ */
+
 public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdapter.ProjectViewHolder> {
 
     private Context mCtx;
@@ -40,6 +47,7 @@ public class ActiveProjectAdapter extends RecyclerView.Adapter<ActiveProjectAdap
         return new ProjectViewHolder(view);
     }
 
+    // Zuweisung der Daten zum Layout
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         final Project project = projectList.get(position);

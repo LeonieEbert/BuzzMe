@@ -18,13 +18,17 @@ import java.util.List;
 
 /**
  * Created by User on 22.03.2018.
+ * Funktion:
+ * Darstellung aller Projekte.
+ * Übermittlung der Daten aus Firebase an den Adapter(OverviewProjectAdapter)
+ *
  */
 
 public class OverviewActivity extends BaseActivity {
     private OverviewProjectAdapter adapter;
     private List<Project> projectsList;
     private List<Long> timestampList;
-    private List<Long> timeList;
+    private List<Long> timeList;//Durch einen Merge wohl wieder reingerutscht
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public class OverviewActivity extends BaseActivity {
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
-
+        //Snapshot: Die Projektliste des Users wird  an den Adapter übergeben. Vermutlich auch auslagerbar
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             projectsList.clear();
@@ -54,6 +58,7 @@ public class OverviewActivity extends BaseActivity {
                     Project project = projectSnapshot.getValue(Project.class);
                     projectsList.add(project);
                     timestampList.clear();
+                    //Berechnung der Projektzeit
                     for (DataSnapshot timestampSnapshot : dataSnapshot.child(project.getProjectId()).child("timestamps").getChildren()) {
                         Timestamp timestamp = timestampSnapshot.getValue(Timestamp.class);
                         Long timedif = timestamp.getStop().getTime() - timestamp.getStart().getTime();

@@ -23,6 +23,9 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * Created by Melleoann on 22.03.2018.
+ *
+ *Funktion:
+ * Erstellen von neuen Projekten
  */
 
 public class AddProjectActivity extends AppCompatActivity {
@@ -50,6 +53,7 @@ public class AddProjectActivity extends AppCompatActivity {
         new UIUtil(this).setupUI(findViewById(R.id.add_project_layout));
     }
 
+    //Color Picker
     private void openColorPickerDialog(boolean alphaSupport) {
         AmbilWarnaDialog colorPickerDialog = new AmbilWarnaDialog(AddProjectActivity.this, projectColor, alphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override

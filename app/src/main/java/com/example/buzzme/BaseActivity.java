@@ -14,6 +14,8 @@ import com.example.buzzme.Utils.TimerUtil;
 
 /**
  * Created by User on 25.04.2018.
+ * Funktion:
+ * Beinhaltet die BottomNavigationBar und ActionBar mit AddProjekt Button
  */
 
 public abstract class BaseActivity extends AppCompatActivity {

@@ -11,6 +11,7 @@ import java.util.Calendar;
 
 /**
  * Created by User on 01.05.2018.
+ * Timerfunktion um Projektzeit zu stoppen
  */
 
 public class TimerUtil {
